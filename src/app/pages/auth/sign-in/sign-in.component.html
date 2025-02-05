@@ -1,54 +1,28 @@
-<div class="py-20">
-    <div class="flex h-full items-center justify-center">
-        <div
-            class="rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-900 flex-col flex h-full items-center justify-center sm:px-4">
-            <div class="flex h-full flex-col justify-center gap-4 p-6">
-                <div class="left-0 right-0 inline-block border-gray-200 px-2 py-2.5 sm:px-4">
-                    <form class="flex flex-col gap-4 pb-4">
-                        <h1 class="mb-4 text-2xl font-bold  dark:text-white">Entrar</h1>
-                        <div>
-                            <div class="mb-2">
-                                <label class="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    for="email">Correo:</label>
-                            </div>
-                            <div class="flex w-full rounded-lg pt-1">
-                                <div class="relative w-full"><input
-                                        class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
-                                        id="email" type="email" name="email" placeholder="email@example.com"
-                                        required="">
-                                </div>
-                            </div>
+<div class="flex items-center min-h-screen bg-white dark:bg-gray-900">
+    <div class="container mx-auto">
+        <div class="max-w-md mx-auto my-10">
+            <div class="text-center">
+                <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Iniciar sesión</h1>
+                <p class="text-gray-500 dark:text-gray-400">Inicia sesión para acceder a tu cuenta</p>
+            </div>
+            <div class="m-7">
+                <form action="">
+                    <div class="mb-6">
+                        <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Dirección de correo electrónico</label>
+                        <input type="email" name="email" id="email" placeholder="tucorreo@empresa.com" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <label for="password" class="text-sm text-gray-600 dark:text-gray-400">Contraseña</label>
+                            <!-- <a href="#!" class="text-sm text-gray-400 focus:outline-none focus:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-300">¿Olvidaste tu contraseña?</a> -->
                         </div>
-                        <div>
-                            <div class="mb-2">
-                                <label class="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    data-testid="flowbite-label" for="password">Contraseña</label>
-                            </div>
-                            <div class="flex w-full rounded-lg pt-1">
-                                <div class="relative w-full"><input
-                                        class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
-                                        id="password" type="password" name="password" required="">
-                                </div>
-                            </div>
-                            <!-- <p class="mt-2 cursor-pointer text-blue-500 hover:text-blue-600">Forgot password?</p> -->
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <button type="submit"
-                                class="border transition-colors focus:ring-2 p-0.5 disabled:cursor-not-allowed border-transparent bg-sky-600 hover:bg-sky-700 active:bg-sky-800 text-white disabled:bg-gray-300 disabled:text-gray-700 rounded-lg ">
-                                <span
-                                    class="flex items-center justify-center gap-1 font-medium py-1 px-2.5 text-base false">
-                                    Entrar
-                                </span>
-                            </button>
-                        </div>
-                    </form>
-                    <!-- <div class="min-w-[270px]">
-                        <div class="mt-4 text-center dark:text-gray-200">Nuevo usuario?
-                            <a class="text-blue-500 underline hover:text-blue-600" href="/signup">Create account
-                                here</a>
-                        </div>
-                    </div> -->
-                </div>
+                        <input type="password" name="password" id="password" placeholder="Tu Contraseña" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                    </div>
+                    <div class="mb-6">
+                        <button type="button" class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Iniciar sesión</button>
+                    </div>
+                    <!-- <p class="text-sm text-center text-gray-400">¿Aún no tienes una cuenta? <a href="#!" class="text-indigo-400 focus:outline-none focus:underline focus:text-indigo-500 dark:focus:border-indigo-800">Regístrate</a>.</p> -->
+                </form>
             </div>
         </div>
     </div>
