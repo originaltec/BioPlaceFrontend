@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { MarketplaceService } from '../../../services/marketplace/marketplace.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Product } from '../../../models/product';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgIf, NgFor],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
