@@ -38,6 +38,13 @@ export class MarketplaceService {
     );
   }
 
+  getOrders () {
+    return this._httpClient.get<any>(`${this._url}/api/Order/GetOrders`, this.getHttpOptions()).pipe(
+      map((response) => response), 
+      catchError(this.handleError)  
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocurrió un error desconocido.';
     if (error.error instanceof ErrorEvent) {

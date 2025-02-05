@@ -13,8 +13,9 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class CategoriesComponent {
 
-   categories : Category [] = [];
+    categories : Category [] = [];
     errorMessage : string = '';
+    loading : boolean = true;
   
     constructor (private _marketPlaceService : MarketplaceService) {}
   
@@ -27,12 +28,19 @@ export class CategoriesComponent {
       this._marketPlaceService.getCategories().subscribe({
   
         next: (data) => {
-          console.log(data);
           this.categories = data;
+
+          setTimeout(() => {
+            this.loading = false;
+          }, 500);
         },
   
         error: (error) => {
           this.errorMessage = error;
+
+          setTimeout(() => {
+            this.loading = false;
+          }, 500);
         }
   
       });
