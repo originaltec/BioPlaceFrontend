@@ -1,7 +1,6 @@
+<aside class="flex min-h-screen">
 
-<aside class="flex h-screen">
-
-    <div class="sidebar h-screen w-64 bg-gray-800 shadow flex-col justify-between hidden sm:flex">
+    <div class="sidebar w-64 bg-gray-800 shadow flex-col justify-between hidden sm:flex min-h-screen overflow-y-auto">
         <div class="px-8">
             <ul class="mt-12">
                 <li class="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
@@ -28,9 +27,8 @@
         </div>
     </div>
 
-    <div class="flex-1 bg-gray-100 p-8">
+    <div class="flex-1 bg-gray-100 p-8 min-h-screen overflow-y-auto">
        <router-outlet></router-outlet>
     </div>
 
 </aside>
-
