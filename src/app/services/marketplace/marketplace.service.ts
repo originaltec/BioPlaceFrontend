@@ -24,6 +24,13 @@ export class MarketplaceService {
     }
   }
 
+  getCategories () {
+    return this._httpClient.get<any>(`${this._url}/GetCategories`, this.getHttpOptions()).pipe(
+      map((response) => response as any), 
+      catchError(this.handleError)  
+    );
+  }
+
   getWooProducts(): Observable<any> {
     return this._httpClient.get<any>(`${this._url}/api/Product/allwoo`, this.getHttpOptions()).pipe(
       map((response) => response as Product), 
