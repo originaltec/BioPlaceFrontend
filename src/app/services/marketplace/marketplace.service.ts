@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { Product } from '../../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class MarketplaceService {
 
   getWooProducts(): Observable<any> {
     return this._httpClient.get<any>(`${this._url}/api/Product/allwoo`, this.getHttpOptions()).pipe(
-      map(response => response), 
+      map((response) => response as Product), 
       catchError(this.handleError)  
     );
   }
