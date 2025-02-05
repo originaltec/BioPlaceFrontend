@@ -24,7 +24,7 @@ export class MarketplaceService {
   }
 
   getWooProducts(): Observable<any> {
-    return this._httpClient.get<any>(this._url, this.getHttpOptions()).pipe(
+    return this._httpClient.get<any>(`${this._url}/api/Product/allwoo`, this.getHttpOptions()).pipe(
       map(response => response), 
       catchError(this.handleError)  
     );
@@ -37,6 +37,7 @@ export class MarketplaceService {
     } else {
       errorMessage = `Código de estado: ${error.status}, Mensaje: ${error.message}`;
     }
+    console.log(error);
     return throwError(() => new Error(errorMessage));
   }
   
