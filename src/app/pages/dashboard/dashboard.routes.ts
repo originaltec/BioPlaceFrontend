@@ -9,7 +9,7 @@ export const dashboardChildrenRoutes: Routes = [
   },
   {
     path: 'categorias',
-    component: CategoriesComponent
+    component: CategoriesComponent,
   },
   {
     path: '',
