@@ -36,7 +36,6 @@ export class CategoriesComponent {
           this.errorMessage = error;
           this.loading = false;
         }
-  
       });
     }
 
