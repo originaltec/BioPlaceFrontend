@@ -1,14 +1,19 @@
 import { Routes } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 export const dashboardChildrenRoutes: Routes = [
   {
-    path: 'products',
+    path: 'productos',
     component: ProductsComponent
   },
   {
+    path: 'categorias',
+    component: CategoriesComponent
+  },
+  {
     path: '',
-    redirectTo: 'products',
+    redirectTo: 'productos',
     pathMatch: 'full'
   }
 ];
