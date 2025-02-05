@@ -5,11 +5,15 @@ import { CategoriesComponent } from './categories/categories.component';
 export const dashboardChildrenRoutes: Routes = [
   {
     path: 'productos',
-    component: ProductsComponent
+    loadComponent: () => import('./products/products.component').then((c) => c.ProductsComponent)
   },
   {
     path: 'categorias',
-    component: CategoriesComponent,
+    loadComponent: () => import('./categories/categories.component').then((c) => c.CategoriesComponent)
+  },
+  {
+    path: 'vendors',
+    loadComponent: () => import('./vendors/vendors.component').then((c) => c.VendorsComponent)
   },
   {
     path: '',
