@@ -29,18 +29,12 @@ export class CategoriesComponent {
   
         next: (data) => {
           this.categories = data;
-
-          setTimeout(() => {
-            this.loading = false;
-          }, 500);
+          this.loading = false;
         },
   
         error: (error) => {
           this.errorMessage = error;
-
-          setTimeout(() => {
-            this.loading = false;
-          }, 500);
+          this.loading = false;
         }
   
       });

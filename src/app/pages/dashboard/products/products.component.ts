@@ -15,6 +15,8 @@ export class ProductsComponent {
   products : Product [] = [];
   errorMessage : string = '';
 
+  loading : boolean = true;
+
   constructor (private _marketPlaceService : MarketplaceService) {}
 
   ngOnInit() {
@@ -26,12 +28,13 @@ export class ProductsComponent {
     this._marketPlaceService.getWooProducts().subscribe({
 
       next: (data) => {
-        console.log(data)
         this.products = data;
+        this.loading = false;
       },
 
       error: (error) => {
         this.errorMessage = error;
+        this.loading = false;
       }
 
     });
