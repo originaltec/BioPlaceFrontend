@@ -14,7 +14,8 @@ export class OrdersComponent {
 
       orders : Order [] = [];
       errorMessage : string = '';
-    
+      loading : boolean = true;
+
       constructor (private _marketPlaceService : MarketplaceService) {}
     
       ngOnInit() {
@@ -27,12 +28,12 @@ export class OrdersComponent {
     
           next: (data : Order []) => {
             this.orders = data;
-
-            console.log(this.orders);
+            this.loading = false;
           },
     
           error: (error) => {
             this.errorMessage = error;
+            this.loading = false;
           }
     
         });

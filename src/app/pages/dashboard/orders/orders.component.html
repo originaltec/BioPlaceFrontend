@@ -6,28 +6,35 @@
     </div>
     <div class="mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
       
-      <!-- <span class="loader" *ngIf="loading; else content;"></span> -->
+      <span class="loader" *ngIf="loading; else content;"></span>
 
+      <ng-template #content>
 
         <article *ngFor="let order of orders; index as i" class="flex max-w-xl flex-col items-start justify-between border p-10 overflow-auto">
           <div class="flex items-center gap-x-4 text-xs">
             <time datetime="2020-03-16" class="text-gray-500">id: {{order.id}}</time>
-            <a href="#" class="relative z-10 rounded-full bg-gray-600 px-3 py-1.5 font-medium text-white "></a>
+            <a href="#" class="relative z-10 rounded-full bg-gray-600 px-3 py-1.5 font-medium text-white">Numero: {{order.number}}</a>
           </div>
           <div class="group relative">
             <h3 class="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
               <a href="#">
                 <span class="absolute inset-0"></span>
-                adg
+                {{ order.status }}
               </a>
             </h3>
             <div class="mt-5 line-clamp-3 text-sm/6 text-gray-600"></div>
           </div>
           <div class="relative mt-8 flex items-start gap-x-4">
             <div class="text-sm/6">
-              <!-- <p class="text-gray-600" *ngFor="let catergory of product.categories; index as i">
-                <strong>{{catergory.id}}</strong>: {{catergory.name}}
-              </p> -->
+              <p>
+                <strong>Ciudad: </strong>{{order.shipping.city}}
+              </p>
+              <p>
+                <strong>Company: </strong>{{order.shipping.company}}
+              </p>
+              <p>
+                <strong>País: </strong>{{order.shipping.country}}
+              </p>
             </div>
           </div>
   
@@ -36,6 +43,7 @@
           </a> -->
         </article>
 
+      </ng-template>
 
     </div>
   </div>
