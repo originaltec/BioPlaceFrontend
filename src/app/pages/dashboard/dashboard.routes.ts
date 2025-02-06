@@ -4,6 +4,10 @@ import { CategoriesComponent } from './categories/categories.component';
 
 export const dashboardChildrenRoutes: Routes = [
   {
+    path: 'add-product',
+    loadComponent: () => import('./add-product/add-product.component').then((c) => c.AddProductComponent)
+  },
+  {
     path: 'productos',
     loadComponent: () => import('./products/products.component').then((c) => c.ProductsComponent)
   },
