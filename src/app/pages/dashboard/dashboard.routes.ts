@@ -8,8 +8,8 @@ export const dashboardChildrenRoutes: Routes = [
     loadComponent: () => import('./products/products.component').then((c) => c.ProductsComponent)
   },
   {
-    path: 'productos/:id',
-    loadComponent: () => import('./products/products.component').then((c) => c.ProductsComponent)
+    path: 'productos/:id/:suk',
+    loadComponent: () => import('./product/product.component').then((c) => c.ProductComponent)
   },
   {
     path: 'categorias',
