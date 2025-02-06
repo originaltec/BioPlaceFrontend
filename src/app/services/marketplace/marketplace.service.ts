@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Product } from '../../models/product';
+import { Order } from '../../models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -38,9 +39,9 @@ export class MarketplaceService {
     );
   }
 
-  getOrders () {
+  getOrders () : Observable<any> {
     return this._httpClient.get<any>(`${this._url}/api/Order/GetOrders`, this.getHttpOptions()).pipe(
-      map((response) => response), 
+      map((response) => response as Order), 
       catchError(this.handleError)  
     );
   }
