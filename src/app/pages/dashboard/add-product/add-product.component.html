@@ -1,1 +1,53 @@
-<p>add-product works!</p>
+<div class="bg-white py-24 sm:py-32 border">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
+          Producto
+        </h2>
+        <p class="mt-2 text-lg text-gray-600">
+          Añade campo de producto con un diseño moderno.
+        </p>
+      </div>
+  
+      <div class="mt-10 lg:mt-16">
+        <form class="max-w-xl rounded-lg bg-white p-8 border border-gray-200">
+          <div class="mb-6">
+            <label for="producto" class="block text-sm font-medium text-gray-700 mb-2">
+              Selecciona un Producto
+            </label>
+            <select
+              id="producto"
+              class="block w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-300 ease-in-out"
+              required
+            >
+              <option value="" disabled selected>Elige una opción</option>
+              <option value="producto1">Producto 1</option>
+              <option value="producto2">Producto 2</option>
+              <option value="producto3">Producto 3</option>
+            </select>
+          </div>
+  
+          <div class="mb-6">
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Campo</label>
+            <input
+              type="password"
+              id="password"
+              class="block w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-300 ease-in-out"
+              required
+            />
+          </div>
+  
+          <button
+            type="submit"
+            class="w-full px-6 py-3 bg-blue-600 text-white font-semibold text-lg rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+          >
+            Añadir
+          </button>
+        </form>
+      </div>
+  
+      <div class="mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      </div>
+    </div>
+  </div>
+  
