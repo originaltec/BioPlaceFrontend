@@ -20,10 +20,7 @@
               class="block w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-300 ease-in-out"
               required
             >
-              <option value="" disabled selected>Elige una opción</option>
-              <option value="producto1">Producto 1</option>
-              <option value="producto2">Producto 2</option>
-              <option value="producto3">Producto 3</option>
+              <option *ngFor="let product of products; index as i">{{product.name}}</option>
             </select>
           </div>
   
@@ -39,7 +36,7 @@
   
           <button
             type="submit"
-            class="w-full px-6 py-3 bg-blue-600 text-white font-semibold text-lg rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            class="w-full px-6 py-2 bg-blue-600 text-white font-semibold text-lg rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           >
             Añadir
           </button>
