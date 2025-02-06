@@ -4,12 +4,19 @@
       <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">Productos</h2>
       <p class="mt-2 text-lg/8 text-gray-600">Productos que vienen del Marketplace.</p>
     </div>
+    <div class="mt-8 lg:mt-16">
+      <a href="/dashboard/add-producto" class="inline-flex items-center px-6 py-3 border border-transparent text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full text-lg">
+        <span class="font-semibold">Añadir Producto</span>
+        <svg class="ml-3 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14m7-7H5"></path>
+        </svg>
+      </a>
+    </div>
     <div class="mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-      
+
       <span class="loader" *ngIf="loading; else content;"></span>
 
       <ng-template #content>
-
         <article *ngFor="let product of products; index as i" class="flex max-w-xl flex-col items-start justify-between border p-10 overflow-auto">
           <div class="flex items-center gap-x-4 text-xs" *ngIf="product.sku.length > 0">
             <time datetime="2020-03-16" class="text-gray-500">id: {{product.id}}</time>
@@ -31,13 +38,12 @@
               </p>
             </div>
           </div>
-  
+
           <a [routerLink]="['/dashboard/productos', product.id, product.sku]" class="go">
             <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 7L15 12L10 17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
           </a>
         </article>
-
-      </ng-template>
+      </ng-template>     
 
     </div>
   </div>
