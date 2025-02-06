@@ -22,4 +22,9 @@ export class SignInComponent {
     });
   }
 
+  login () {
+    console.log('send login');
+
+  }
+
 }
