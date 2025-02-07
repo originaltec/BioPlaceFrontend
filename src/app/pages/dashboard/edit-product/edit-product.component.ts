@@ -60,7 +60,6 @@ export class EditProductComponent {
         this._marketplaceService.updateProduct(Number(this.productId), this.product[0]).subscribe(
           (response) => {
             console.log('Producto actualizado con éxito', response);
-            this._router.navigate(['/products']); 
           },
           (error) => {
             console.error('Error al actualizar el producto:', error);
