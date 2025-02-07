@@ -35,7 +35,7 @@ export class EditProductComponent {
 
       if (this.productId) {
         this._marketplaceService.getWooProductById(this.productId).subscribe(
-          (response: any) => {
+          (response: Product) => {
             this.product = response;
             
             this.productForm.setValue({
@@ -53,18 +53,18 @@ export class EditProductComponent {
       if (this.productForm.valid && this.product) {
         
         const { inStock } = this.productForm.value;
-  
-        this.product[0].inStock = inStock.toLowerCase() === 'true';
-  
+        this.product[0].inStock = inStock == 'true';
+        
+        console.log(this.product[0].inStock);
 
-        this._marketplaceService.updateProduct(Number(this.productId), this.product[0]).subscribe(
-          (response) => {
-            console.log('Producto actualizado con éxito', response);
-          },
-          (error) => {
-            console.error('Error al actualizar el producto:', error);
-          }
-        );
+        // this._marketplaceService.updateProduct(Number(this.productId), this.product[0]).subscribe(
+        //   (response) => {
+        //     console.log('Producto actualizado con éxito', response);
+        //   },
+        //   (error) => {
+        //     console.error('Error al actualizar el producto:', error);
+        //   }
+        // );
       } else {
         console.log('Formulario inválido');
       }
