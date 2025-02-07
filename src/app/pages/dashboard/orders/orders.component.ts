@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { MarketplaceService } from '../../../services/marketplace/marketplace.service';
 import { Order } from '../../../models/order';
 import { NgFor, NgIf } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [RouterModule, NgFor, NgIf],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })

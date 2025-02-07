@@ -28,6 +28,10 @@ export const dashboardChildrenRoutes: Routes = [
     loadComponent: () => import('./orders/orders.component').then((c) => c.OrdersComponent)
   },
   {
+    path: 'orders/:id',
+    loadComponent: () => import('./order/order.component').then((c) => c.OrderComponent)
+  },
+  {
     path: '',
     redirectTo: 'productos',
     pathMatch: 'full'
