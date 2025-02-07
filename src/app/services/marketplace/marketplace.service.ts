@@ -53,6 +53,13 @@ export class MarketplaceService {
     );
   }
 
+  updateProduct(product: Product): Observable<any> {
+    return this._httpClient.put<any>(`${this._url}/api/Product`, product, this.getHttpOptions()).pipe(
+      map((response) => response as Product),
+      catchError(this.handleError) 
+    );
+  }
+
   getOrders () : Observable<any> {
     return this._httpClient.get<any>(`${this._url}/api/Order/GetOrders`, this.getHttpOptions()).pipe(
       map((response) => response as Order), 

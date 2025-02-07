@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ActivatedRoute } from '@angular/router';
 import { MarketplaceService } from '../../../services/marketplace/marketplace.service';
 import { NgIf } from '@angular/common';
+import { Product } from '../../../models/product';
 
 @Component({
   selector: 'app-edit-product',
@@ -50,8 +51,11 @@ export class EditProductComponent {
     update() {
       if (this.productForm.valid) {
         const {inStock} = this.productForm.value;
-        // console.log(this.productForm.value);
-        console.log(inStock)
+
+        this.product[0].inStock = inStock.toLowerCase() === 'true';
+
+        console.log(this.product);
+
       }
     }
 }
