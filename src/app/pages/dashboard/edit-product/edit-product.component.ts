@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MarketplaceService } from '../../../services/marketplace/marketplace.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-edit-product',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [NgIf, ReactiveFormsModule],
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.scss'
 })

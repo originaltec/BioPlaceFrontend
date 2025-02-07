@@ -16,6 +16,7 @@
                 Hola, por favor ingresa tu dirección de correo electrónico para suscribirte a nuestro boletín.
               </p>
               <select
+                *ngIf="product"
                 class="border-2 rounded-lg w-full h-12 px-4"
                 [value]="product[0].inStock"
               >
