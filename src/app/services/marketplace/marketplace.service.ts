@@ -60,6 +60,13 @@ export class MarketplaceService {
     );
   }
 
+  getOrderById (id : number) : Observable<any> {
+    return this._httpClient.get<any>(`${this._url}/api/Order/GetOrderById/${id}`, this.getHttpOptions()).pipe(
+      map((response) => response as Order), 
+      catchError(this.handleError)  
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocurrió un error desconocido.';
     if (error.error instanceof ErrorEvent) {
