@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MarketplaceService } from '../../../services/marketplace/marketplace.service';
 import { NgIf } from '@angular/common';
 import { Product } from '../../../models/product';
@@ -22,7 +22,8 @@ export class EditProductComponent {
     constructor(
       private _route: ActivatedRoute,
       private _marketplaceService : MarketplaceService,
-      private _formBuilder : FormBuilder
+      private _formBuilder : FormBuilder,
+      private _router : Router
     ) {}
 
     ngOnInit(): void {
@@ -48,14 +49,24 @@ export class EditProductComponent {
       }
     }
 
-    update() {
-      if (this.productForm.valid) {
-        const {inStock} = this.productForm.value;
-
+    update(): void {
+      if (this.productForm.valid && this.product) {
+        
+        const { inStock } = this.productForm.value;
+  
         this.product[0].inStock = inStock.toLowerCase() === 'true';
-
-        console.log(this.product);
-
+  
+        this._marketplaceService.updateProduct(Number(this.productId), this.product[0]).subscribe(
+          (response) => {
+            console.log('Producto actualizado con éxito', response);
+            this._router.navigate(['/products']); 
+          },
+          (error) => {
+            console.error('Error al actualizar el producto:', error);
+          }
+        );
+      } else {
+        console.log('Formulario inválido');
       }
     }
 }
