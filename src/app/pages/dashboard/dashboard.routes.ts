@@ -12,6 +12,10 @@ export const dashboardChildrenRoutes: Routes = [
     loadComponent: () => import('./product/product.component').then((c) => c.ProductComponent)
   },
   {
+    path: 'edit-product',
+    loadComponent: () => import('./edit-product/edit-product.component').then((c) => c.EditProductComponent)
+  },
+  {
     path: 'categorias',
     loadComponent: () => import('./categories/categories.component').then((c) => c.CategoriesComponent)
   },

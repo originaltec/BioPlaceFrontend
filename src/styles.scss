@@ -6,7 +6,7 @@
 article {
   position: relative;
 
-  .go {
+  .svg {
     width: 25px;
     height: 25px;
     position: absolute;
@@ -19,9 +19,16 @@ article {
       height: 100%;
     }
   }
+
+  .edit{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
     height: 4px;
     width: 130px;
