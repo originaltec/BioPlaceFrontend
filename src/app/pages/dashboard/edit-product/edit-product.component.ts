@@ -56,6 +56,7 @@ export class EditProductComponent {
   
         this.product[0].inStock = inStock.toLowerCase() === 'true';
   
+
         this._marketplaceService.updateProduct(Number(this.productId), this.product[0]).subscribe(
           (response) => {
             console.log('Producto actualizado con éxito', response);
