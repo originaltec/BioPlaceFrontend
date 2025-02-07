@@ -4,7 +4,7 @@ export interface Product {
     slug: string;
     postAuthor: string;
     permalink: string;
-    dateCreated: string; // Date as string to match the ISO format (alternatively, you can use `Date` type)
+    dateCreated: string;
     dateCreatedGmt: string;
     dateModified: string;
     dateModifiedGmt: string;

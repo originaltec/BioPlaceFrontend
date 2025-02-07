@@ -1,0 +1,14 @@
+<section class="w-full p-6 bg-white rounded-lg shadow-lg border border-gray-200 space-y-6">
+    <div *ngIf="product">
+        <div *ngFor="let key of productKeys" class="flex justify-between items-center py-4 px-6rounded-md shadow-sm p-5">
+            <div class="flex items-center space-x-2">
+                <strong class="text-lg font-semibold text-gray-800">{{ key }}:</strong>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="text-gray-600 text-base">
+                    {{ convertToDisplay(product[0][key]) }}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>

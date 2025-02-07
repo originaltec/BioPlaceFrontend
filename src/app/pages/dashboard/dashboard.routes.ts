@@ -4,10 +4,6 @@ import { CategoriesComponent } from './categories/categories.component';
 
 export const dashboardChildrenRoutes: Routes = [
   {
-    path: 'add-product',
-    loadComponent: () => import('./add-product/add-product.component').then((c) => c.AddProductComponent)
-  },
-  {
     path: 'productos',
     loadComponent: () => import('./products/products.component').then((c) => c.ProductsComponent)
   },
@@ -19,6 +15,10 @@ export const dashboardChildrenRoutes: Routes = [
     path: 'categorias',
     loadComponent: () => import('./categories/categories.component').then((c) => c.CategoriesComponent)
   },
+  {
+    path: 'categories/:id',
+    loadComponent: () => import('./category/category.component').then((c) => c.CategoryComponent)
+  },  
   {
     path: 'vendors',
     loadComponent: () => import('./vendors/vendors.component').then((c) => c.VendorsComponent)

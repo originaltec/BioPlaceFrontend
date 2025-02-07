@@ -7,7 +7,7 @@ import { NgFor, NgIf } from '@angular/common';
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, RouterModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })

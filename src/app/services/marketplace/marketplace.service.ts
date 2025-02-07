@@ -39,6 +39,13 @@ export class MarketplaceService {
     );
   }
 
+  getWooProductById(id: number): Observable<any> {
+    return this._httpClient.get<any>(`${this._url}/api/Product/${id}`, this.getHttpOptions()).pipe(
+      map((response) => response as Product), 
+      catchError(this.handleError)  
+    );
+  }
+
   getOrders () : Observable<any> {
     return this._httpClient.get<any>(`${this._url}/api/Order/GetOrders`, this.getHttpOptions()).pipe(
       map((response) => response as Order), 
