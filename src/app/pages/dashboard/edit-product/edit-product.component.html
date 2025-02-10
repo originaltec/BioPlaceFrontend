@@ -13,16 +13,15 @@
               Editar Producto
             </h1>
             <p class="text-sm text-gray-500 text-center w-full"> 
-              Hola, por favor ingresa tu dirección de correo electrónico para suscribirte a nuestro boletín.
+              Hola, por favor ingresa la cantidad de stock del producto.
             </p>
-            <select
-              *ngIf="product"
+            <input
+              type="number"
               class="border-2 rounded-lg w-full h-12 px-4"
-              formControlName="inStock"
-            >
-              <option value="false">Deshabilitar Stock</option>
-              <option value="true">Habilitar Stock</option>
-            </select>
+              formControlName="stockQuantity"
+              placeholder="Cantidad de stock"
+              min="0"
+            />
             <button
               class="bg-black text-white rounded-md font-semibold px-4 py-3 w-full"
             >

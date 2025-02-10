@@ -10,7 +10,7 @@ import { Product } from '../../../models/product';
   standalone: true,
   imports: [NgIf, ReactiveFormsModule],
   templateUrl: './edit-product.component.html',
-  styleUrl: './edit-product.component.scss'
+  styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent {
 
@@ -28,7 +28,7 @@ export class EditProductComponent {
 
     ngOnInit(): void {
       this.productForm = this._formBuilder.group({
-        inStock: new FormControl('', Validators.required) 
+        stockQuantity: new FormControl('', [Validators.required, Validators.min(0)])
       });
 
       this.productId = Number(this._route.snapshot.paramMap.get('id'));
@@ -37,9 +37,11 @@ export class EditProductComponent {
         this._marketplaceService.getWooProductById(this.productId).subscribe(
           (response: Product) => {
             this.product = response;
-            
+
+            console.log(this.product);
+
             this.productForm.setValue({
-              inStock: this.product[0].inStock 
+              stockQuantity: this.product[0].stockQuantity || 0
             });
           },
           (error) => {
@@ -52,13 +54,13 @@ export class EditProductComponent {
     update(): void {
       if (this.productForm.valid && this.product) {
         
-        const { inStock } = this.productForm.value;
-        this.product[0].inStock = inStock == 'true';
-        
-        const tempProduct : Product = this.product[0];
+        const { stockQuantity } = this.productForm.value;
+        this.product[0].stockQuantity = stockQuantity;
+
+        const tempProduct: Product = this.product[0];
         console.log(tempProduct);
 
-        this._marketplaceService.updateProduct(Number(this.productId), this.product[0]).subscribe(
+        this._marketplaceService.updateProduct(Number(this.productId), tempProduct).subscribe(
           (response) => {
             console.log('Producto actualizado con éxito', response);
           },
