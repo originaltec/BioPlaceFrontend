@@ -35,8 +35,8 @@ export interface Product {
     buttonText: string;
     taxStatus: string;
     taxClass: string;
-    manageStock: boolean;
-    stockQuantity: number | null;
+    manage_strock: boolean;
+    stock_quantity: number | null;
     lowStockAmount: string;
     inStock: boolean;
     backorders: string;

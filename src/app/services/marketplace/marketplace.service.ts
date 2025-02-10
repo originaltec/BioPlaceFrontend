@@ -48,15 +48,16 @@ export class MarketplaceService {
 
   getWooProductById(id: number): Observable<any> {
     return this._httpClient.get<any>(`${this._url}/api/Product/${id}`, this.getHttpOptions()).pipe(
-      map((response) => response as Product), 
+      map((response) => response as any), 
       catchError(this.handleError)  
     );
   }
-
-  updateProduct(idProduct : number, product: Product): Observable<any> {
-    return this._httpClient.put<any>(`${this._url}/api/Product/${idProduct}`, product, this.getHttpOptions()).pipe(
+  updateProduct(idProduct: number, stock_quantity: number): Observable<any> {
+    const updatedStock : any = { stock_quantity: stock_quantity };
+  
+    return this._httpClient.put<any>(`${this._url}/api/Product/${idProduct}`, updatedStock, this.getHttpOptions()).pipe(
       map((response) => response as Product),
-      catchError(this.handleError) 
+      catchError(this.handleError)
     );
   }
 
