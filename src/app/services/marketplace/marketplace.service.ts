@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { Product } from '../../models/product';
+import { Product, Store } from '../../models/product';
 import { Order } from '../../models/order';
 
 @Injectable({
@@ -71,6 +71,23 @@ export class MarketplaceService {
     return this._httpClient.get<any>(`${this._url}/api/Order/GetOrderById/${id}`, this.getHttpOptions()).pipe(
       map((response) => response as Order), 
       catchError(this.handleError)  
+    );
+  }
+
+  getStores(): Observable<Store[]> {
+    return this._httpClient.get<Store[]>(`${this._url}/api/Store/GetStores`, this.getHttpOptions()).pipe(
+      map((response) => response as Store[]), 
+      catchError(this.handleError)
+    );
+  }
+
+  getStoreById(id: number): Observable<Store> {
+
+    console.log(id)
+
+    return this._httpClient.get<Store>(`${this._url}/api/Store/GetStoreById/${id}`, this.getHttpOptions()).pipe(
+      map((response) => response as Store),
+      catchError(this.handleError)
     );
   }
 

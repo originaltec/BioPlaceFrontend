@@ -1,0 +1,36 @@
+export interface Store {
+  id: number;
+  store_name: string;          
+  first_name: string;          
+  last_name: string;          
+  social: any;
+  phone: string;
+  show_email: boolean;        
+  address: any;
+  location: string;
+  banner: string;
+  banner_id: number;          
+  gravatar: string;
+  gravatar_id: number;     
+  shop_url: string;           
+  toc_enabled: boolean;        
+  store_toc: string;          
+  featured: boolean;
+  rating: any;
+  enabled: boolean;
+  registered: Date;
+  payment: any;
+  trusted: boolean;
+  store_open_close: any;      
+  sale_only_here: boolean;    
+  company_name: string;         
+  vat_number: string;          
+  company_id_number: string;   
+  bank_name: string;           
+  bank_iban: string;            
+  admin_category_commission: any;
+  admin_commission: string;    
+  admin_additional_fee: string;
+  admin_commission_type: string;
+  links: any;
+}

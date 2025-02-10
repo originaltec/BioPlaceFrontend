@@ -55,16 +55,17 @@ export class EditProductComponent {
         const { inStock } = this.productForm.value;
         this.product[0].inStock = inStock == 'true';
         
-        console.log(this.product[0].inStock);
+        const tempProduct : Product = this.product[0];
+        console.log(tempProduct);
 
-        // this._marketplaceService.updateProduct(Number(this.productId), this.product[0]).subscribe(
-        //   (response) => {
-        //     console.log('Producto actualizado con éxito', response);
-        //   },
-        //   (error) => {
-        //     console.error('Error al actualizar el producto:', error);
-        //   }
-        // );
+        this._marketplaceService.updateProduct(Number(this.productId), this.product[0]).subscribe(
+          (response) => {
+            console.log('Producto actualizado con éxito', response);
+          },
+          (error) => {
+            console.error('Error al actualizar el producto:', error);
+          }
+        );
       } else {
         console.log('Formulario inválido');
       }

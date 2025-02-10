@@ -28,6 +28,10 @@ export const dashboardChildrenRoutes: Routes = [
     loadComponent: () => import('./vendors/vendors.component').then((c) => c.VendorsComponent)
   },
   {
+    path: 'vendors/:id',
+    loadComponent: () => import('./vendor/vendor.component').then((c) => c.VendorComponent)
+  },
+  {
     path: 'orders',
     loadComponent: () => import('./orders/orders.component').then((c) => c.OrdersComponent)
   },
