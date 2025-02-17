@@ -56,4 +56,8 @@ export class ProductsComponent {
     
   }
 
+  register (product : Product){
+    console.log(product);
+  }
+
 }
