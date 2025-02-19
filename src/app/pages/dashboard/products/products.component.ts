@@ -104,9 +104,9 @@ export class ProductsComponent {
   }
   
   updateProduct (product : Product) {
-    console.log("updating product and reading ...");
-  
-    console.log(product);
+
+    
+
   }
 
 }

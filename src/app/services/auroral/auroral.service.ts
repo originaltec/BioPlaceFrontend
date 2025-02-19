@@ -112,4 +112,19 @@ export class AuroralService {
 
   }
 
+  getItemData(id: string, oid: string, pid: string): Observable<any> {
+    const basicAuth = btoa(`${this._username}:${this._password}`);
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Basic ${basicAuth}`,
+    });
+  
+    return this.http.get(`${this._apiUrl}/api/properties/${id}/${oid}/${pid}`, { headers }).pipe(
+      catchError((error) => {
+        console.error(`Error obtenint les dades de l'ítem amb id: ${id}, oid: ${oid}, pid: ${pid}`, error);
+        return throwError(() => error);
+      })
+    );
+  }
+
 }
