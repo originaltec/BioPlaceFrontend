@@ -114,8 +114,7 @@ export class ProductsComponent {
         const tempStock = quantity[0]?.value || 0;
         product.stock_quantity_auroral = tempStock;
 
-
-        console.log("Upload Product", product);
+        // Now update to the database the element - Azure
       });
 
   }

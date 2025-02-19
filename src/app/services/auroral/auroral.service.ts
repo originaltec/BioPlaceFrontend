@@ -42,7 +42,7 @@ export class AuroralService {
         "description": "Product Description",
         "properties": {
           "stock_quantity": {
-            "title": product.stock_quantity?.toString(),
+            "title": product.stock_quantity?.toString() || "descripcion",
             "description": "Stock Quantity Description",
             "@type": "Unknown",
             "readOnly": true,
@@ -50,7 +50,7 @@ export class AuroralService {
             "forms": []
           },
           "price": {
-            "title": product.price.toString(),
+            "title": product.price.toString() || "titulo",
             "description": "Price productos",
             "@type": "Unknown",
             "readOnly": true,
