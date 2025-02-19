@@ -93,7 +93,7 @@ export class ProductsComponent {
     );
   }
 
-  register(product: Product) {
+  register(product : Product) {
     this._auroralService.registerProduct(product).subscribe(
       (data) => {
         this.fetchProducts();
@@ -104,5 +104,10 @@ export class ProductsComponent {
     );
   }
   
+  updateProduct (product : Product) {
+    console.log("updating product and reading ...");
+  
+    console.log(product);
+  }
 
 }

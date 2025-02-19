@@ -107,5 +107,9 @@ export class AuroralService {
     );
   }
   
+  updateProduct () {
+    console.log("Updating And Reading Information");
+
+  }
 
 }
