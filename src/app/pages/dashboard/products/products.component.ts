@@ -69,13 +69,19 @@ export class ProductsComponent {
 
             if(data){
               const { adapterId } = data.message;
+              const { properties } = data.message;
+              
+              const stock_quantity = 0;
+              const price = 0;
 
-              const product = products.filter((product : Product) => product.name === "Winter Vine Shoot");
+              const product = products.filter((product : Product) => product.name === "Winter Vine Shoot" && product.stock_quantity
+              === stock_quantity && product.price === price);
 
-              console.log(data);
 
-              if(product)
-                  console.log(product);
+              if(product){
+                
+                console.log(product);
+              }
             }
           });
         });
