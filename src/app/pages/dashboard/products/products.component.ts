@@ -109,8 +109,11 @@ export class ProductsComponent {
     const pid = "Shipments";
 
     this._auroralService.getItemData(id, oid, pid).subscribe((element : any) => {
+        const { quantity } = element.message;
 
-      console.log(element);
+        const tempStock = quantity[0].value;
+
+        console.log(tempStock);
 
     });
 
