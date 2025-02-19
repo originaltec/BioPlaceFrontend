@@ -3,6 +3,7 @@ import { MarketplaceService } from '../../../services/marketplace/marketplace.se
 import { NgFor, NgIf } from '@angular/common';
 import { Product } from '../../../models/product';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { AuroralService } from '../../../services/auroral/auroral.service';
 
 @Component({
   selector: 'app-products',
@@ -22,12 +23,13 @@ export class ProductsComponent {
   sukValue: string = '';
 
   constructor (private _marketPlaceService : MarketplaceService,
-    private _activatedRoute : ActivatedRoute
+    private _activatedRoute : ActivatedRoute,
+    private _auroralService : AuroralService
   ) {}
 
   ngOnInit() {
     this.fetchData();
-    this.getProducts();
+    this.fetchProducts();
   }
 
   fetchData () {
@@ -38,13 +40,14 @@ export class ProductsComponent {
     });
   }
 
-  getProducts () {
-
+  fetchProducts () {
     this._marketPlaceService.getWooProducts().subscribe({
 
       next: (data) => {
         this.products = data;
         this.loading = false;
+
+        this.fetchRegisteresProducts(this.products);
       },
 
       error: (error) => {
@@ -53,11 +56,47 @@ export class ProductsComponent {
       }
 
     });
-    
   }
 
-  register (product : Product){
-    console.log(product);
+  fetchRegisteresProducts (products : Product []) {
+    this._auroralService.getProducts().subscribe(
+      (data) => {
+        const {message} = data;
+
+        message.forEach((oid : string) => {
+
+          this._auroralService.getProduct(oid).subscribe((data) => {
+
+            if(data){
+              const { adapterId } = data.message;
+
+              const product = products.filter((product : Product) => product.name === "Winter Vine Shoot");
+
+              console.log(data);
+
+              if(product)
+                  console.log(product);
+            }
+          });
+        });
+
+      },
+      (error) => {
+        console.error('Error al registrar el producto:', error); 
+      }
+    );
   }
+
+  register(product: Product) {
+    this._auroralService.registerProduct(product).subscribe(
+      (data) => {
+        this.fetchProducts();
+      },
+      (error) => {
+        console.error('Error al registrar el producto:', error); 
+      }
+    );
+  }
+  
 
 }
