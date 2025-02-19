@@ -102,7 +102,7 @@ export class ProductsComponent {
     );
   }
   
-  updateProduct (product : Product) {
+  updateProduct (product : any) {
 
     const id = "cb3bb356-507b-4cdc-8865-e2a8c632d3d4";
     const oid = "e17b2459-5e3c-456b-aaaa-d5f47d9817e7";
@@ -111,11 +111,12 @@ export class ProductsComponent {
     this._auroralService.getItemData(id, oid, pid).subscribe((element : any) => {
         const { quantity } = element.message;
 
-        const tempStock = quantity[0].value;
+        const tempStock = quantity[0]?.value || 0;
+        product.stock_quantity_auroral = tempStock;
 
-        console.log(tempStock);
 
-    });
+        console.log("Upload Product", product);
+      });
 
   }
 
