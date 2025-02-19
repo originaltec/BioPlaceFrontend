@@ -59,37 +59,36 @@ export class ProductsComponent {
   }
 
   fetchRegisteresProducts (products : Product []) {
-    this._auroralService.getProducts().subscribe(
-      (data) => {
-        const {message} = data;
+    // this._auroralService.getProducts().subscribe(
+    //   (data) => {
+    //     const {message} = data;
 
-        message.forEach((oid : string) => {
+    //     message.forEach((oid : string) => {
 
-          this._auroralService.getProduct(oid).subscribe((data) => {
+    //       this._auroralService.getProduct(oid).subscribe((data) => {
 
-            if(data){
-              const { adapterId } = data.message;
-              const { properties } = data.message;
+    //         if(data){
+    //           const { adapterId } = data.message;
+    //           const { properties } = data.message;
               
-              const stock_quantity = properties[0];
-              const price = properties[1];
+    //           const stock_quantity = properties[0];
+    //           const price = properties[1];
 
-              const product = products.filter((product : Product) => product.name === adapterId && product.stock_quantity
-              === stock_quantity && product.price === price);
+    //           const product = products.filter((product : Product) => product.name === adapterId && product.stock_quantity
+    //           === stock_quantity && product.price === price);
 
 
-              if(product){
-                console.log(product);
-              }
-            }
-          });
-        });
+    //           if(product){
+    //           }
+    //         }
+    //       });
+    //     });
 
-      },
-      (error) => {
-        console.error('Error al registrar el producto:', error); 
-      }
-    );
+    //   },
+    //   (error) => {
+    //     console.error('Error al registrar el producto:', error); 
+    //   }
+    // );
   }
 
   register(product : Product) {
@@ -105,7 +104,15 @@ export class ProductsComponent {
   
   updateProduct (product : Product) {
 
-    
+    const id = "cb3bb356-507b-4cdc-8865-e2a8c632d3d4";
+    const oid = "e17b2459-5e3c-456b-aaaa-d5f47d9817e7";
+    const pid = "Shipments";
+
+    this._auroralService.getItemData(id, oid, pid).subscribe((element : any) => {
+
+      console.log(element);
+
+    });
 
   }
 
