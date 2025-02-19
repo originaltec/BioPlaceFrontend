@@ -71,15 +71,14 @@ export class ProductsComponent {
               const { adapterId } = data.message;
               const { properties } = data.message;
               
-              const stock_quantity = 0;
-              const price = 0;
+              const stock_quantity = properties[0];
+              const price = properties[1];
 
-              const product = products.filter((product : Product) => product.name === "Winter Vine Shoot" && product.stock_quantity
+              const product = products.filter((product : Product) => product.name === adapterId && product.stock_quantity
               === stock_quantity && product.price === price);
 
 
               if(product){
-                
                 console.log(product);
               }
             }
