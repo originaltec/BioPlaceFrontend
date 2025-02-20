@@ -52,10 +52,25 @@ export class MarketplaceService {
       catchError(this.handleError)  
     );
   }
-  updateProduct(idProduct: number, stock_quantity: number): Observable<any> {
-    const updatedStock : any = { stock_quantity: stock_quantity };
-  
-    return this._httpClient.put<any>(`${this._url}/api/Product/${idProduct}`, updatedStock, this.getHttpOptions()).pipe(
+  updateProduct(idProduct: number, stock_quantity: number, description: string = ''): Observable<any> {
+    const contentUpdate : any = { stock_quantity: stock_quantity };
+
+    if (description.length > 0) {
+      contentUpdate.description = description;
+    }
+
+    console.log(contentUpdate);
+
+    return this._httpClient.put<any>(`${this._url}/api/Product/${idProduct}`, contentUpdate, this.getHttpOptions()).pipe(
+        map((response) => response as Product),
+        catchError(this.handleError)
+    );
+}
+
+  updateDescription(idProduct: number, text : string) : Observable<any> {
+    const updatedDescription : any = {description : text};
+
+    return this._httpClient.put<any>(`${this._url}/api/Product/${idProduct}`, updatedDescription, this.getHttpOptions()).pipe(
       map((response) => response as Product),
       catchError(this.handleError)
     );

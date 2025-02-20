@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from '../../../models/product';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MarketplaceService } from '../../../services/marketplace/marketplace.service';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -16,14 +16,17 @@ export class ProductComponent {
   productId: number | null = null;
   product: any | null = null;
   productKeys: string[] = []; 
+  loading : boolean = true;
 
   constructor(
-    private _route: ActivatedRoute,
-    private _marketplaceService : MarketplaceService
+    private _activatedRoute: ActivatedRoute,
+    private _marketplaceService : MarketplaceService,
+    private _router : Router
   ) {}
 
   ngOnInit(): void {
-    this.productId = Number(this._route.snapshot.paramMap.get('id'));
+    this.productId = Number(this._activatedRoute.snapshot.paramMap.get('id'));
+    this.loading = true;
 
     if (this.productId) {
       this._marketplaceService.getWooProductById(this.productId).subscribe(
@@ -32,10 +35,11 @@ export class ProductComponent {
 
           this.productKeys = Object.keys(response[0]);
 
-          console.log(this.productKeys);
+          this.loading = false;
         },
         (error) => {
-          console.error('Error al obtener el producto:', error);
+          this.loading = false;
+          this._router.navigate(['/dashboard/productos']);
         }
       );
     }

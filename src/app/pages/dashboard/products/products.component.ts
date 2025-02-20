@@ -48,7 +48,7 @@ export class ProductsComponent {
 
 
         this.products.forEach((product) => {
-          console.log(product.description);
+
         }); 
 
         this.fetchRegisteredProducts(this.products);
@@ -113,16 +113,17 @@ export class ProductsComponent {
       "Shipments"
     ).subscribe(({ message: { quantity } }: any) => {
       product.stock_quantity = quantity[0]?.value || 0;
-      console.log("Product Id ", product.id, "Stock_Quantity", product.stock_quantity);
     
       const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
+      const { description } = product;
+      const extraText = `<p><strong>Stock Del Auroral ${number}</strong></p>`;
+      const sendText = `${description} ${extraText}`;
 
-      this._marketPlaceService.updateProduct(Number(product.id), number).subscribe((data) => {
+      this._marketPlaceService.updateProduct(Number(product.id), number, sendText).subscribe((data) => {
 
-        if(data){
-          alert(`Stock del producto actualizado a ${number}: `);
-        }
+        console.log("Updated");
       });
+    
     });
   }
   
