@@ -14,13 +14,15 @@ import { AuroralService } from '../../../services/auroral/auroral.service';
 })
 export class ProductsComponent {
 
-  products : Product [] = [];
+  products : any [] = [];
   errorMessage : string = '';
 
   loading : boolean = true;
 
   productId: string = '';
   sukValue: string = '';
+
+  success : boolean = false;
 
   constructor (private _marketPlaceService : MarketplaceService,
     private _activatedRoute : ActivatedRoute,
@@ -106,7 +108,7 @@ export class ProductsComponent {
     );
   }
   
-  updateProduct(product: any) {
+  updateProduct(product: any, index : number = -1) {
     this._auroralService.getItemData(
       "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
       "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
@@ -120,6 +122,10 @@ export class ProductsComponent {
       const sendText = `${description} ${extraText}`;
 
       this._marketPlaceService.updateProduct(Number(product.id), number, sendText).subscribe((data) => {
+
+        if(index !== -1){
+          this.products[index].success = true;
+        }
 
         console.log("Updated");
       });

@@ -106,11 +106,6 @@ export class AuroralService {
       })
     );
   }
-  
-  updateProduct () {
-    console.log("Updating And Reading Information");
-
-  }
 
   getItemData(id: string, oid: string, pid: string): Observable<any> {
     const basicAuth = btoa(`${this._username}:${this._password}`);

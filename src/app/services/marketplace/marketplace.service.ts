@@ -59,8 +59,6 @@ export class MarketplaceService {
       contentUpdate.description = description;
     }
 
-    console.log(contentUpdate);
-
     return this._httpClient.put<any>(`${this._url}/api/Product/${idProduct}`, contentUpdate, this.getHttpOptions()).pipe(
         map((response) => response as Product),
         catchError(this.handleError)
@@ -98,8 +96,6 @@ export class MarketplaceService {
   }
 
   getStoreById(id: number): Observable<Store> {
-
-    console.log(id)
 
     return this._httpClient.get<Store>(`${this._url}/api/Store/GetStoreById/${id}`, this.getHttpOptions()).pipe(
       map((response) => response as Store),

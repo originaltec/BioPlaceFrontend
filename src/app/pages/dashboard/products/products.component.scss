@@ -1,3 +1,17 @@
 .button{
     cursor: pointer !important;
 }
+
+@keyframes alertAnim{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.alert{
+    animation-name: alertAnim;
+    animation-duration: 500ms;
+}
