@@ -33,7 +33,6 @@ export class ProductsComponent {
   }
 
   fetchData () {
-
     this._activatedRoute.paramMap.subscribe(params => {
       this.productId = params.get('id') || '';
       this.sukValue = params.get('suk') || '';
@@ -47,7 +46,12 @@ export class ProductsComponent {
         this.products = data;
         this.loading = false;
 
-        this.fetchRegisteresProducts(this.products);
+
+        this.products.forEach((product) => {
+          console.log(product.description);
+        }); 
+
+        this.fetchRegisteredProducts(this.products);
       },
 
       error: (error) => {
@@ -58,7 +62,7 @@ export class ProductsComponent {
     });
   }
 
-  fetchRegisteresProducts (products : Product []) {
+  fetchRegisteredProducts (products : Product []) {
     // this._auroralService.getProducts().subscribe(
     //   (data) => {
     //     const {message} = data;
@@ -102,21 +106,25 @@ export class ProductsComponent {
     );
   }
   
-  updateProduct (product : any) {
+  updateProduct(product: any) {
+    this._auroralService.getItemData(
+      "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
+      "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
+      "Shipments"
+    ).subscribe(({ message: { quantity } }: any) => {
+      product.stock_quantity = quantity[0]?.value || 0;
+      console.log("Product Id ", product.id, "Stock_Quantity", product.stock_quantity);
+    
+      const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
 
-    const id = "cb3bb356-507b-4cdc-8865-e2a8c632d3d4";
-    const oid = "e17b2459-5e3c-456b-aaaa-d5f47d9817e7";
-    const pid = "Shipments";
+      this._marketPlaceService.updateProduct(Number(product.id), number).subscribe((data) => {
 
-    this._auroralService.getItemData(id, oid, pid).subscribe((element : any) => {
-        const { quantity } = element.message;
-
-        const tempStock = quantity[0]?.value || 0;
-        product.stock_quantity_auroral = tempStock;
-
-        // Now update to the database the element - Azure
+        if(data){
+          alert(`Stock del producto actualizado a ${number}: `);
+        }
       });
-
+    });
   }
+  
 
 }
