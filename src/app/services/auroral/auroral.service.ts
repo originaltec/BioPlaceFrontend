@@ -35,8 +35,8 @@ export class AuroralService {
             "scheme": "nosec"
           }
         },
-        "title": "asdg",
-        "adapterId": "asdgasd",
+        "title": product.name.toString(),
+        "adapterId": product.name.toString().replace(/[^a-zA-Z0-9-]/g, ''),
         "@type": "adp:Device",
         "domain": "Farming",
         "description": "Product Description",
