@@ -47,13 +47,6 @@ export class ProductsComponent {
       next: (data) => {
         this.products = data;
         this.loading = false;
-
-
-        this.products.forEach((product) => {
-
-        }); 
-
-        this.fetchRegisteredProducts(this.products);
       },
 
       error: (error) => {
@@ -64,46 +57,18 @@ export class ProductsComponent {
     });
   }
 
-  fetchRegisteredProducts (products : Product []) {
-    // this._auroralService.getProducts().subscribe(
-    //   (data) => {
-    //     const {message} = data;
-
-    //     message.forEach((oid : string) => {
-
-    //       this._auroralService.getProduct(oid).subscribe((data) => {
-
-    //         if(data){
-    //           const { adapterId } = data.message;
-    //           const { properties } = data.message;
-              
-    //           const stock_quantity = properties[0];
-    //           const price = properties[1];
-
-    //           const product = products.filter((product : Product) => product.name === adapterId && product.stock_quantity
-    //           === stock_quantity && product.price === price);
-
-
-    //           if(product){
-    //           }
-    //         }
-    //       });
-    //     });
-
-    //   },
-    //   (error) => {
-    //     console.error('Error al registrar el producto:', error); 
-    //   }
-    // );
-  }
-
-  register(product : Product) {
+  register(product : Product, index : number = -1) {
     this._auroralService.registerProduct(product).subscribe(
       (data) => {
         this.fetchProducts();
       },
       (error) => {
-        console.error('Error al registrar el producto:', error); 
+        
+        if(error.error.message[0].error.startsWith("REGISTRATION")){
+
+          if(index !== -1) 
+            this.products[index].error = true;
+        }
       }
     );
   }
