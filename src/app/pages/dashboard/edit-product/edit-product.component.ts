@@ -19,6 +19,8 @@ export class EditProductComponent {
     productId: number | null = null;
     product: any | null = null;
 
+    loading : boolean = false;
+
     constructor(
       private _route: ActivatedRoute,
       private _marketplaceService : MarketplaceService,
@@ -52,22 +54,25 @@ export class EditProductComponent {
     }
 
     update(): void {
+      this.loading = true;
+      
       if (this.productForm.valid && this.product) {
-    
+
+
         const { stock_quantity } = this.productForm.value;
     
         // const tempProduct = { stock_quantity: stockQuantity };
     
         this._marketplaceService.updateProduct(Number(this.productId), stock_quantity).subscribe(
           (response) => {
-            console.log('Producto actualizado con éxito', response);
+            this.loading = false;
           },
           (error) => {
-            console.error('Error al actualizar el producto:', error);
+            this.loading = false;
           }
         );
       } else {
-        console.log('Formulario inválido');
+        this.loading = false;
       }
     }
 }
