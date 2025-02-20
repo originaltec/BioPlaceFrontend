@@ -16,6 +16,8 @@ export class OrderComponent {
       order: any | null = null;
       ordersKeys: string[] = []; 
     
+      loading : boolean = true;
+
       constructor(
         private _route: ActivatedRoute,
         private _marketplaceService : MarketplaceService
@@ -29,10 +31,10 @@ export class OrderComponent {
             (response: any) => {
               this.order = response;
               this.ordersKeys = Object.keys(response);
-              console.log(response);
+              this.loading = false;
             },
             (error : any) => {
-              console.error('Error al obtener el producto:', error);
+              this.loading = false;
             }
           );
         }

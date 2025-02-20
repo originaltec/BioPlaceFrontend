@@ -11,9 +11,12 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrl: './vendor.component.scss',
 })
 export class VendorComponent {
+
   storeId: number | null = null;
   store: any | null = null;
   storeKeys: string[] = [];
+
+  loading : boolean = true;
 
   constructor(
     private _route: ActivatedRoute,
@@ -27,12 +30,12 @@ export class VendorComponent {
       this._marketplaceService.getStoreById(this.storeId).subscribe(
         (response: any) => {
           this.store = response;
-
-          console.log(response)
-
           this.storeKeys = Object.keys(response);
+
+          this.loading = false;
         },
         (error) => {
+          this.loading = false;
           console.error('Error al obtener la tienda:', error);
         }
       );

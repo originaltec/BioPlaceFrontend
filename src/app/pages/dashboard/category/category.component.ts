@@ -16,6 +16,8 @@ export class CategoryComponent {
     category: any | null = null;
     categoriesKeys: string[] = []; 
   
+    loading : boolean = true;
+
     constructor(
       private _route: ActivatedRoute,
       private _marketplaceService : MarketplaceService
@@ -24,13 +26,17 @@ export class CategoryComponent {
     ngOnInit(): void {
       this.categoryId = Number(this._route.snapshot.paramMap.get('id'));
   
+      this.loading = true;
+
        if (this.categoryId) {
         this._marketplaceService.getCategory(this.categoryId).subscribe(
           (response: any) => {
             this.category = response;
             this.categoriesKeys = Object.keys(response);
+            this.loading = false;
           },
           (error : any) => {
+            this.loading = false;
             console.error('Error al obtener el producto:', error);
           }
         );
