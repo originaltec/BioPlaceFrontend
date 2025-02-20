@@ -53,11 +53,7 @@ export class MarketplaceService {
     );
   }
   updateProduct(idProduct: number, stock_quantity: number, description: string = ''): Observable<any> {
-    const contentUpdate : any = { stock_quantity: stock_quantity };
-
-    if (description.length > 0) {
-      contentUpdate.description = description;
-    }
+    const contentUpdate : any = { stock_quantity: stock_quantity, description: description };
 
     return this._httpClient.put<any>(`${this._url}/api/Product/${idProduct}`, contentUpdate, this.getHttpOptions()).pipe(
         map((response) => response as Product),
@@ -67,6 +63,8 @@ export class MarketplaceService {
 
   updateDescription(idProduct: number, text : string) : Observable<any> {
     const updatedDescription : any = {description : text};
+
+    console.log(updatedDescription);
 
     return this._httpClient.put<any>(`${this._url}/api/Product/${idProduct}`, updatedDescription, this.getHttpOptions()).pipe(
       map((response) => response as Product),

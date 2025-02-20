@@ -13,7 +13,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: 'sign-in',
+        redirectTo: 'dashboard/productos',
         pathMatch: 'full'
     }
 ];
