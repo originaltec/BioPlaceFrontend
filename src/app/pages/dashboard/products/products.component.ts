@@ -109,6 +109,7 @@ export class ProductsComponent {
   }
   
   updateProduct(product: any, index : number = -1) {
+
     this._auroralService.getItemData(
       "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
       "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
@@ -127,7 +128,6 @@ export class ProductsComponent {
           this.products[index].success = true;
         }
 
-        console.log("Updated");
       });
     
     });
