@@ -56,12 +56,13 @@ export class EditProductComponent {
       
       if (this.productForm.valid && this.product) {
 
-
         const { stock_quantity } = this.productForm.value;
+        let { description } = this.product[0];
+
+        description = description.replace(/<p[^>]*(id|class)=["'][^"']*["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
+        description += `<p id="stock-info" class="stock-class"><strong>Stock del Auroral ${stock_quantity}</strong></p>`;
     
-        // const tempProduct = { stock_quantity: stockQuantity };
-    
-        this._marketplaceService.updateProduct(Number(this.productId), stock_quantity).subscribe(
+        this._marketplaceService.updateProduct(Number(this.productId), stock_quantity, description).subscribe(
           (response) => {
             this.loading = false;
           },

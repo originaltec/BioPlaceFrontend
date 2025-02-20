@@ -108,31 +108,30 @@ export class ProductsComponent {
     );
   }
   
-  updateProduct(product: any, index : number = -1) {
-
+  updateProduct(product: any, index: number = -1) {
     this._auroralService.getItemData(
       "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
       "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
       "Shipments"
     ).subscribe(({ message: { quantity } }: any) => {
       product.stock_quantity = quantity[0]?.value || 0;
-    
+  
       const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
-      const { description } = product;
-      const extraText = `<p><strong>Stock Del Auroral ${number}</strong></p>`;
-      const sendText = `${description} ${extraText}`;
-
-      this._marketPlaceService.updateProduct(Number(product.id), number, sendText).subscribe((data) => {
-
-        if(index !== -1){
+      let { description } = product;
+  
+      description = description.replace(/<p[^>]*id=["']stock-info["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
+  
+      const extraText = `<p id='stock-info'><strong>Stock Del Auroral ${number}</strong></p>`;
+      const updatedDescription = description + extraText;
+  
+      this._marketPlaceService.updateProduct(Number(product.id), number, updatedDescription).subscribe((data) => {
+        if (index !== -1) {
           this.products[index].success = true;
         }
-
       });
- 
-    
     });
   }
+  
   
 
 }
