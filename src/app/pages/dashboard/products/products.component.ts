@@ -72,7 +72,7 @@ export class ProductsComponent {
             const index = this.products.findIndex((product: Product) => product.name === name);
 
             if (index !== -1) {
-              console.log("Índice del elemento:", index);
+              this.products[index].objectIdOid = element;
             }
 
           });
