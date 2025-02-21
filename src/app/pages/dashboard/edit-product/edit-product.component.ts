@@ -60,7 +60,7 @@ export class EditProductComponent {
         let { description } = this.product[0];
 
         description = description.replace(/<p[^>]*(id|class)=["'][^"']*["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
-        description += `<p id="stock-info" class="stock-class"><strong>Stock del Auroral ${stock_quantity}</strong></p>`;
+        description += `<p id="stock-info" class="stock-class"><strong>Stock del MarketPlace ${stock_quantity}</strong></p>`;
     
         this._marketplaceService.updateProduct(Number(this.productId), stock_quantity, description).subscribe(
           (response) => {

@@ -51,7 +51,6 @@ export class ProductsComponent {
       if(data){
         this.registeredElements = data;
       }
-
     });
   }
 
@@ -78,14 +77,12 @@ export class ProductsComponent {
 
           });
         });
-
       },
 
       error: (error) => {
         this.errorMessage = error;
         this.loading = false;
       }
-
     });
   }
 
@@ -118,10 +115,10 @@ export class ProductsComponent {
   
       const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
       let { description } = product;
-  
+      
       description = description.replace(/<p[^>]*id=["']stock-info["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
   
-      const extraText = `<p id='stock-info'><strong>Stock Del Auroral ${number}</strong></p>`;
+      const extraText = `<p id='stock-info'><strong>Stock Del MarketPlace ${number}</strong></p>`;
       const updatedDescription = description + extraText;
   
       this._marketPlaceService.updateProduct(Number(product.id), number, updatedDescription).subscribe((data) => {
@@ -129,10 +126,10 @@ export class ProductsComponent {
           this.products[index].success = true;
         }
       });
+
+      this.fetchProducts();
+    
     });
 
   }
-  
-  
-
 }
