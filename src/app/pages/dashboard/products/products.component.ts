@@ -30,6 +30,7 @@ export class ProductsComponent {
   ) {}
 
   ngOnInit() {
+    this.fetchRegisteredProducts();
     this.fetchData();
     this.fetchProducts();
   }
@@ -38,6 +39,16 @@ export class ProductsComponent {
     this._activatedRoute.paramMap.subscribe(params => {
       this.productId = params.get('id') || '';
       this.sukValue = params.get('suk') || '';
+    });
+  }
+
+  fetchRegisteredProducts () {
+    this._auroralService.getProducts().subscribe((data) => {
+
+      if(data){
+        console.log(data);
+      }
+
     });
   }
 
@@ -96,7 +107,7 @@ export class ProductsComponent {
         }
       });
     });
-    
+
   }
   
   
