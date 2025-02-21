@@ -72,6 +72,7 @@ export class ProductsComponent {
             const index = this.products.findIndex((product: Product) => product.name === name);
 
             if (index !== -1) {
+              console.log(this.products[index]);
               this.products[index].objectIdOid = element;
             }
 
@@ -88,7 +89,7 @@ export class ProductsComponent {
     });
   }
 
-  register(product : Product, index : number = -1) {
+  register(product : any, index : number = -1) {
     this._auroralService.registerProduct(product).subscribe(
       (data) => {
         this.fetchProducts();
@@ -106,8 +107,10 @@ export class ProductsComponent {
   
   updateProduct(product: any, index: number = -1) {
 
+    const { objectIdOid } = product;
+
     this._auroralService.getItemData(
-      "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
+      objectIdOid || "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
       "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
       "Shipments"
     ).subscribe(({ message: { quantity } }: any) => {
