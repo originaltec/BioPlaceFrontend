@@ -74,7 +74,7 @@
               <span class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">Registrar en auroral</span>
             </a>
 
-            <a (click)="updateProduct(product, i)" class="button mt-3 ml-3 relative px-5 py-3 overflow-hidden text-center flex items-center justify-center font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group">
+            <a (click)="openAdvice(product)" class="button mt-3 ml-3 relative px-5 py-3 overflow-hidden text-center flex items-center justify-center font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group">
               <span class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
               <span class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
               <span class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
@@ -109,8 +109,8 @@
               <h3 class="text-base font-semibold text-gray-900" id="modal-title">Combinar Stock</h3>
               <div class="mt-2">
                 <p class="text-sm text-gray-500">Si combinas el stock del Marketplace, este será igual al del Auroral. ¿Deseas continuar?</p>
-                <p class="text-sm text-gray-700 mt-2">Stock Marketplace: <span id="stock-marketplace"><strong>10</strong></span></p>
-                <p class="text-sm text-gray-700">Stock Auroral: <span id="stock-auroral"><strong>15</strong></span></p>
+                <p class="text-sm text-gray-700 mt-2">Stock Marketplace: <span id="stock-marketplace"><strong>{{adviceMarketplaceStock}}</strong></span></p>
+                <p class="text-sm text-gray-700">Stock Auroral: <span id="stock-auroral"><strong>17</strong></span></p>
               </div>
             </div>
           </div>

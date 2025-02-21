@@ -27,6 +27,7 @@ export class ProductsComponent {
   registeredElements : any;
 
   advice : boolean = false;
+  adviceMarketplaceStock : number = 0;
 
   constructor (private _marketPlaceService : MarketplaceService,
     private _activatedRoute : ActivatedRoute,
@@ -103,10 +104,28 @@ export class ProductsComponent {
       }
     );
   }
+
+  openAdvice(product: any) {
+
+    this.advice = true;
+
+    this._marketPlaceService.getWooProductById(product.id).subscribe(
+      (response: any) => {
+        const tempStock = response[0].stock_quantity;
+        this.adviceMarketplaceStock = tempStock;
+      },
+      (error) => {
+        console.error('Error al obtener el producto:', error);
+      }
+    );
+  }
+  
   
   updateProduct(product: any, index: number = -1) {
 
     this.advice = true;
+
+    console.log(product);
 
     // const { objectIdOid } = product;
 
