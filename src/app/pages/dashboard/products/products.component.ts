@@ -24,6 +24,8 @@ export class ProductsComponent {
 
   success : boolean = false;
 
+  registeredElements : any;
+
   constructor (private _marketPlaceService : MarketplaceService,
     private _activatedRoute : ActivatedRoute,
     private _auroralService : AuroralService
@@ -33,6 +35,7 @@ export class ProductsComponent {
     this.fetchRegisteredProducts();
     this.fetchData();
     this.fetchProducts();
+
   }
 
   fetchData () {
@@ -46,7 +49,7 @@ export class ProductsComponent {
     this._auroralService.getProducts().subscribe((data) => {
 
       if(data){
-        console.log(data);
+        this.registeredElements = data;
       }
 
     });
@@ -58,6 +61,23 @@ export class ProductsComponent {
       next: (data) => {
         this.products = data;
         this.loading = false;
+
+        const arrayElement = this.registeredElements.message;
+
+        arrayElement.forEach(( element : any, index : number) => {
+
+          this._auroralService.getProduct(element).subscribe((tempElement) => {
+            const { name } = tempElement.message;
+          
+            const index = this.products.findIndex((product: Product) => product.name === name);
+
+            if (index !== -1) {
+              console.log("Índice del elemento:", index);
+            }
+
+          });
+        });
+
       },
 
       error: (error) => {
