@@ -19,7 +19,7 @@ export class SignInComponent {
   constructor(
     private _authService : AuthServiceToken,
     private formBuilder: FormBuilder,
-    private router: Router
+    private _router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
@@ -40,7 +40,7 @@ export class SignInComponent {
         const token = response.token;
         this._authService.saveToken(token);
 
-        console.log(token);
+        this._router.navigate(['/dashboard/productos']);
       },
       (error : any) => {
         this.errorMessage = 'Credenciales incorrectas. Intenta de nuevo.';
