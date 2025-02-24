@@ -16,6 +16,13 @@ export class SignInComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
+  /**
+   * Creates an instance of SignInComponent.
+   * 
+   * @param _authService - The authentication service used for user authentication.
+   * @param formBuilder - The form builder service used to create the login form.
+   * @param _router - The router service used for navigation.
+   */
   constructor(
     private _authService : AuthServiceToken,
     private formBuilder: FormBuilder,
@@ -27,6 +34,17 @@ export class SignInComponent {
     });
   }
 
+  /**
+   * Handles the login process for the user.
+   * 
+   * This method first checks if the login form is valid. If the form is invalid, the method returns early.
+   * If the form is valid, it extracts the email and password from the form and calls the authentication service's login method.
+   * 
+   * On successful login, it saves the received token and navigates the user to the dashboard's products page.
+   * If the login fails, it sets an error message indicating incorrect credentials.
+   * 
+   * @returns {void}
+   */
   login(): void {
     
     if (this.loginForm.invalid) {

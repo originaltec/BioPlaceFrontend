@@ -18,11 +18,25 @@ export class CategoryComponent {
   
     loading : boolean = true;
 
+    /**
+     * Creates an instance of CategoryComponent.
+     * 
+     * @param _route - Injected instance of ActivatedRoute to handle route parameters.
+     * @param _marketplaceService - Injected instance of MarketplaceService to interact with marketplace data.
+     */
     constructor(
       private _route: ActivatedRoute,
       private _marketplaceService : MarketplaceService
     ) {}
   
+    /**
+     * Initializes the component by retrieving the category ID from the route parameters
+     * and fetching the corresponding category data from the marketplace service.
+     * 
+     * @returns {void}
+     * 
+     * @memberof CategoryComponent
+     */
     ngOnInit(): void {
       this.categoryId = Number(this._route.snapshot.paramMap.get('id'));
   
@@ -43,6 +57,15 @@ export class CategoryComponent {
       }
     }
   
+    /**
+     * Converts a given value to a displayable string format.
+     *
+     * @param value - The value to be converted. It can be of any type.
+     * @returns A string representation of the value. If the value is an array, 
+     *          it returns a comma-separated string of JSON stringified items. 
+     *          If the value is an object, it returns the JSON stringified object.
+     *          If the value is null or undefined, it returns 'null'.
+     */
     convertToDisplay(value: any): string {
       if (typeof value === 'object') {
         if (Array.isArray(value)) {

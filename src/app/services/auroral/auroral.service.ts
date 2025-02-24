@@ -77,6 +77,16 @@ export class AuroralService {
     );
   }
 
+  /**
+   * Fetches the list of products from the API.
+   *
+   * This method sends a GET request to the API endpoint for product registration,
+   * using Basic Authentication with the provided username and password.
+   *
+   * @returns {Observable<any>} An observable that emits the response from the API.
+   * If an error occurs during the request, it logs the error to the console and
+   * returns an observable that throws the error.
+   */
   getProducts(): Observable<any> {
     const basicAuth = btoa(`${this._username}:${this._password}`);
   
@@ -92,6 +102,14 @@ export class AuroralService {
     );
   }
 
+  /**
+   * Retrieves a product by its ID.
+   *
+   * @param {string} id - The ID of the product to retrieve.
+   * @returns {Observable<any>} An observable containing the product data.
+   *
+   * @throws Will throw an error if the product retrieval fails.
+   */
   getProduct(id: string): Observable<any> {
     const basicAuth = btoa(`${this._username}:${this._password}`);
   

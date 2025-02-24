@@ -15,9 +15,19 @@ describe('SignInComponent', () => {
     fixture = TestBed.createComponent(SignInComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+    });
 
-  it('should create', () => {
+    it('should create', () => {
     expect(component).toBeTruthy();
+    });
+
+    it('should have a defined component', () => {
+    expect(component).toBeDefined();
+    });
+
+    it('should render title in a h1 tag', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Sign In');
+    });
+
   });
-});

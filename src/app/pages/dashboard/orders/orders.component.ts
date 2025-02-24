@@ -19,10 +19,24 @@ export class OrdersComponent {
 
       constructor (private _marketPlaceService : MarketplaceService) {}
     
+      /**
+       * Lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
+       * This is where you should perform component initialization.
+       * In this case, it calls the `getOrders` method to fetch the orders when the component is initialized.
+       */
       ngOnInit() {
         this.getOrders();
       }
     
+      /**
+       * Fetches the list of orders from the market place service.
+       * 
+       * This method subscribes to the `getOrders` observable from the `_marketPlaceService`
+       * and handles the response by updating the `orders` property with the fetched data.
+       * It also manages the `loading` state and handles any errors that occur during the fetch operation.
+       * 
+       * @returns {void}
+       */
       getOrders () {
     
         this._marketPlaceService.getOrders().subscribe({

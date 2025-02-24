@@ -21,6 +21,14 @@ export class EditProductComponent {
 
     loading : boolean = false;
 
+    /**
+     * Constructs an instance of EditProductComponent.
+     * 
+     * @param _route - Service to handle route parameters.
+     * @param _marketplaceService - Service to interact with the marketplace API.
+     * @param _formBuilder - Service to create and manage forms.
+     * @param _router - Service to navigate between routes.
+     */
     constructor(
       private _route: ActivatedRoute,
       private _marketplaceService : MarketplaceService,
@@ -28,6 +36,14 @@ export class EditProductComponent {
       private _router : Router
     ) {}
 
+    /**
+     * Initializes the component by setting up the product form and fetching the product details if a product ID is present in the route parameters.
+     * 
+     * - Creates a form group with a `stock_quantity` control, which is required and must have a minimum value of 0.
+     * - Retrieves the product ID from the route parameters.
+     * - If a product ID is found, fetches the product details from the marketplace service and populates the form with the product's stock quantity.
+     * - Logs an error to the console if there is an issue fetching the product details.
+     */
     ngOnInit(): void {
       this.productForm = this._formBuilder.group({
         stock_quantity: new FormControl('', [Validators.required, Validators.min(0)])
@@ -51,6 +67,21 @@ export class EditProductComponent {
       }
     }
 
+    /**
+     * Updates the product information.
+     * 
+     * This method sets the loading state to true, validates the product form, and updates the product description
+     * with the stock quantity. It then calls the marketplace service to update the product information.
+     * 
+     * @returns {void}
+     * 
+     * @remarks
+     * - The method checks if the product form is valid and if the product exists.
+     * - It modifies the product description by removing any paragraph tags with specific attributes and appending
+     *   a new paragraph with the stock quantity.
+     * - The marketplace service is called to update the product with the new stock quantity and description.
+     * - The loading state is set to false after the update operation, regardless of success or failure.
+     */
     update(): void {
       this.loading = true;
       
