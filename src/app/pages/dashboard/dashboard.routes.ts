@@ -2,6 +2,22 @@ import { Routes } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
 import { CategoriesComponent } from './categories/categories.component';
 
+/**
+ * Defines the child routes for the dashboard module.
+ * 
+ * Routes:
+ * - `productos`: Loads the ProductsComponent.
+ * - `productos/:id/:suk`: Loads the ProductComponent for a specific product.
+ * - `edit-product/:id`: Loads the EditProductComponent for editing a specific product.
+ * - `categorias`: Loads the CategoriesComponent.
+ * - `categories/:id`: Loads the CategoryComponent for a specific category.
+ * - `vendors`: Loads the VendorsComponent.
+ * - `vendors/:id`: Loads the VendorComponent for a specific vendor.
+ * - `orders`: Loads the OrdersComponent.
+ * - `orders/:id`: Loads the OrderComponent for a specific order.
+ * - `settings`: Loads the SettingsComponent.
+ * - `''`: Redirects to the 'productos' route.
+ */
 export const dashboardChildrenRoutes: Routes = [
   {
     path: 'productos',

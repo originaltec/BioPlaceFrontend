@@ -12,6 +12,11 @@ export class AuroralService {
   private _username: string = 'juan@originaltec.com'; 
   private _password: string = 'Tfcpass@2024'; 
 
+  /**
+   * Creates an instance of AuroralService.
+   * 
+   * @param http - The HttpClient instance used to make HTTP requests.
+   */
   constructor(private http: HttpClient) {}
 
   registerProduct(product: Product): Observable<any> {
@@ -125,6 +130,16 @@ export class AuroralService {
     );
   }
 
+  /**
+   * Fetches item data from the API using the provided identifiers.
+   *
+   * @param id - The ID of the item.
+   * @param oid - The OID of the item.
+   * @param pid - The PID of the item.
+   * @returns An Observable containing the item data.
+   *
+   * @throws Will throw an error if the HTTP request fails.
+   */
   getItemData(id: string, oid: string, pid: string): Observable<any> {
     const basicAuth = btoa(`${this._username}:${this._password}`);
   

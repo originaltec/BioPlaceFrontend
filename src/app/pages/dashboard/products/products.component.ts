@@ -30,6 +30,13 @@ export class ProductsComponent {
   adviceMarketplaceStock : number = 0;
   adviceProduct : any;
 
+  /**
+   * Constructs an instance of the ProductsComponent.
+   * 
+   * @param _marketPlaceService - Service to interact with the marketplace.
+   * @param _activatedRoute - Service to access information about the current route.
+   * @param _auroralService - Service to interact with the Auroral API.
+   */
   constructor (private _marketPlaceService : MarketplaceService,
     private _activatedRoute : ActivatedRoute,
     private _auroralService : AuroralService
@@ -41,6 +48,11 @@ export class ProductsComponent {
     this.fetchProducts();
   }
 
+  /**
+   * Fetches data based on route parameters.
+   * Subscribes to the route parameters and assigns the values to `productId` and `sukValue`.
+   * If the parameters are not present, assigns an empty string.
+   */
   fetchData () {
     this._activatedRoute.paramMap.subscribe(params => {
       this.productId = params.get('id') || '';
@@ -48,6 +60,13 @@ export class ProductsComponent {
     });
   }
 
+  /**
+   * Fetches the registered products from the service and assigns them to the registeredElements property.
+   * 
+   * This method makes a call to the _auroralService's getProducts method, which returns an observable.
+   * When the observable emits data, it checks if the data is not null or undefined.
+   * If data is present, it assigns the data to the registeredElements property.
+   */
   fetchRegisteredProducts () {
     this._auroralService.getProducts().subscribe((data) => {
 
@@ -57,6 +76,19 @@ export class ProductsComponent {
     });
   }
 
+  /**
+   * Fetches products from the marketplace service and updates the component's product list.
+   * 
+   * This method performs the following steps:
+   * 1. Calls the marketplace service to get WooCommerce products.
+   * 2. Subscribes to the response and updates the `products` array and `loading` state.
+   * 3. Iterates over the registered elements and fetches additional product details from the auroral service.
+   * 4. Updates the corresponding product in the `products` array with the fetched details.
+   * 
+   * In case of an error during the fetch operation, the `errorMessage` and `loading` state are updated accordingly.
+   * 
+   * @returns {void}
+   */
   fetchProducts () {
     this._marketPlaceService.getWooProducts().subscribe({
 
@@ -89,6 +121,14 @@ export class ProductsComponent {
     });
   }
 
+  /**
+   * Registers a product using the Auroral service and updates the product list.
+   * If an error occurs during registration and the error message starts with "REGISTRATION",
+   * it sets the error flag on the product at the specified index.
+   *
+   * @param product - The product to be registered.
+   * @param index - The index of the product in the products array. Defaults to -1.
+   */
   register(product : any, index : number = -1) {
     this._auroralService.registerProduct(product).subscribe(
       (data) => {
@@ -105,6 +145,23 @@ export class ProductsComponent {
     );
   }
 
+  /**
+   * Opens the advice modal for a given product and fetches its details from the marketplace service.
+   * 
+   * @param product - The product object containing the product details.
+   * 
+   * @remarks
+   * This method sets the `advice` flag to true and makes an HTTP request to fetch the product details
+   * by its ID. On successful response, it assigns the product details to `adviceProduct` and updates
+   * the `adviceMarketplaceStock` with the product's stock quantity. If an error occurs during the 
+   * HTTP request, it logs the error to the console.
+   * 
+   * @example
+   * ```typescript
+   * const product = { id: 123, name: 'Sample Product' };
+   * this.openAdvice(product);
+   * ```
+   */
   openAdvice(product: any) {
     this.advice = true;
 

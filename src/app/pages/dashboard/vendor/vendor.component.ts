@@ -18,11 +18,24 @@ export class VendorComponent {
 
   loading : boolean = true;
 
+  /**
+   * Constructs an instance of VendorComponent.
+   * 
+   * @param _route - Injected instance of ActivatedRoute to handle route parameters.
+   * @param _marketplaceService - Injected instance of MarketplaceService to interact with marketplace data.
+   */
   constructor(
     private _route: ActivatedRoute,
     private _marketplaceService: MarketplaceService
   ) {}
 
+  /**
+   * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+   * Initializes the component by retrieving the store ID from the route parameters and fetching
+   * the store details from the marketplace service if the store ID is present.
+   * 
+   * @returns {void}
+   */
   ngOnInit(): void {
     this.storeId = Number(this._route.snapshot.paramMap.get('id'));
 
@@ -42,6 +55,15 @@ export class VendorComponent {
     }
   }
 
+  /**
+   * Converts a given value to a displayable string format.
+   *
+   * @param value - The value to be converted. It can be of any type.
+   * @returns A string representation of the value. If the value is an array, 
+   * it returns a comma-separated string of JSON stringified items. If the value 
+   * is an object, it returns the JSON stringified representation of the object. 
+   * If the value is null or undefined, it returns 'null'.
+   */
   convertToDisplay(value: any): string {
 
     if (typeof value === 'object') {

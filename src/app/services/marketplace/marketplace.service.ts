@@ -110,6 +110,13 @@ export class MarketplaceService {
     );
   }
 
+  /**
+   * Handles HTTP errors and returns a user-friendly error message.
+   *
+   * @private
+   * @param {HttpErrorResponse} error - The HTTP error response object.
+   * @returns {Observable<never>} An observable that throws an error with a user-friendly message.
+   */
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocurrió un error desconocido.';
     if (error.error instanceof ErrorEvent) {

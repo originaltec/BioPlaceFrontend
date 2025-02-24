@@ -30,6 +30,11 @@ export class VendorsComponent {
     this.getStores(); 
   }
 
+  /**
+   * Fetches data based on route parameters.
+   * Subscribes to the route parameters and retrieves the 'id' and 'suk' values.
+   * Assigns the 'id' value to `storeId` and the 'suk' value to `sukValue`.
+   */
   fetchData() {
     this._activatedRoute.paramMap.subscribe(params => {
       this.storeId = params.get('id') || ''; 
@@ -37,6 +42,15 @@ export class VendorsComponent {
     });
   }
 
+  /**
+   * Fetches the list of stores from the marketplace service and updates the component state.
+   * 
+   * This method subscribes to the `getStores` observable from the `_marketPlaceService`.
+   * On successful data retrieval, it assigns the data to the `stores` property and sets `loading` to false.
+   * In case of an error, it assigns the error message to the `errorMessage` property and sets `loading` to false.
+   * 
+   * @returns {void}
+   */
   getStores() {
     this._marketPlaceService.getStores().subscribe({
 
