@@ -28,6 +28,7 @@ export class ProductsComponent {
 
   advice : boolean = false;
   adviceMarketplaceStock : number = 0;
+  adviceProduct : any;
 
   constructor (private _marketPlaceService : MarketplaceService,
     private _activatedRoute : ActivatedRoute,
@@ -38,7 +39,6 @@ export class ProductsComponent {
     this.fetchRegisteredProducts();
     this.fetchData();
     this.fetchProducts();
-
   }
 
   fetchData () {
@@ -106,11 +106,11 @@ export class ProductsComponent {
   }
 
   openAdvice(product: any) {
-
     this.advice = true;
 
     this._marketPlaceService.getWooProductById(product.id).subscribe(
       (response: any) => {
+        this.adviceProduct = response;
         const tempStock = response[0].stock_quantity;
         this.adviceMarketplaceStock = tempStock;
       },
@@ -121,38 +121,36 @@ export class ProductsComponent {
   }
   
   
-  updateProduct(product: any, index: number = -1) {
-
-    this.advice = true;
-
-    console.log(product);
+  updateProduct(product: any, index = -1) {
 
     // const { objectIdOid } = product;
 
-    // this._auroralService.getItemData(
-    //   objectIdOid || "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
-    //   "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
-    //   "Shipments"
-    // ).subscribe(({ message: { quantity } }: any) => {
-    //   product.stock_quantity = quantity[0]?.value || 0;
-  
-    //   const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
-    //   let { description } = product;
-      
-    //   description = description.replace(/<p[^>]*id=["']stock-info["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
-  
-    //   const extraText = `<p id='stock-info'><strong>Stock Del MarketPlace ${number}</strong></p>`;
-    //   const updatedDescription = description + extraText;
-  
-    //   this._marketPlaceService.updateProduct(Number(product.id), number, updatedDescription).subscribe((data) => {
-    //     if (index !== -1) {
-    //       this.products[index].success = true;
-    //     }
-    //   });
+    this._auroralService.getItemData(
+      "8b09e4ce-aead-433c-9dc2-be6180e3de73",
+      "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
+      "Shipments"
+    ).subscribe(({ message: { quantity } }: any) => {
+     
+      console.log(quantity);
 
-    //   this.fetchProducts();
-    
-    // });
+      // product.stock_quantity = quantity[0]?.value || 0;
+
+      // const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
+      // let { description } = product;
+      
+      // description = description.replace(/<p[^>]*id=["']stock-info["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
+  
+      // const extraText = `<p id='stock-info'><strong>Stock Del MarketPlace ${number}</strong></p>`;
+      // const updatedDescription = description + extraText;
+  
+      // this._marketPlaceService.updateProduct(Number(product.id), number, updatedDescription).subscribe((data) => {
+
+      //   if (index !== -1) {
+      //     this.products[index].success = true;
+      //   }
+      // });
+
+    });
 
   }
 }
