@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { dashboardChildrenRoutes } from './pages/dashboard/dashboard.routes';
+import { tokenGuard } from './guards/token.guard';
 
 export const routes: Routes = [
     {
@@ -9,7 +10,8 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         loadComponent: () => import('./pages/dashboard/dashboard.component').then((c) => c.DashboardComponent),
-        children: dashboardChildrenRoutes
+        children: dashboardChildrenRoutes,
+        canActivate: [tokenGuard]
     },
     {
         path: '',
