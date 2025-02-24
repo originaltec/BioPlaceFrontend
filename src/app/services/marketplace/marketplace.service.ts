@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Product, Store } from '../../models/product';
 import { Order } from '../../models/order';
+import { AuthServiceToken } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,25 @@ export class MarketplaceService {
 
   private _url : string = 'https://localhost:7202';
 
-  constructor(private _httpClient : HttpClient,
-    private _router : Router
+  constructor(
+    private _httpClient : HttpClient,
+    private _router : Router,
+    private authService: AuthServiceToken
   ) { }
 
   getHttpOptions () {
+    const token = this.authService.getToken(); 
+    if (!token) {
+      this._router.navigate(['/sign-in']);
+      throw new Error('Usuario no autenticado. Redirigiendo a inicio de sesión.');
+    }
+
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Jpb3BsYWNlLmJpeiIsImlhdCI6MTczODY1OTk0OCwibmJmIjoxNzM4NjU5OTQ4LCJleHAiOjE3MzkyNjQ3NDgsImRhdGEiOnsidXNlciI6eyJpZCI6IjEzIn19fQ.3jR560oYLeMn_G97xdHCl3FjEGDyHr8jSLFP6aoXveg`
+        'Authorization': `Bearer ${token}` 
       })
-    }
+    };
   }
 
   getCategories () {
@@ -52,6 +61,7 @@ export class MarketplaceService {
       catchError(this.handleError)  
     );
   }
+
   updateProduct(idProduct: number, stock_quantity: number, description: string = ''): Observable<any> {
     const contentUpdate : any = { stock_quantity: stock_quantity, description: description };
 
@@ -59,7 +69,7 @@ export class MarketplaceService {
         map((response) => response as Product),
         catchError(this.handleError)
     );
-}
+  }
 
   updateDescription(idProduct: number, text : string) : Observable<any> {
     const updatedDescription : any = {description : text};
@@ -94,7 +104,6 @@ export class MarketplaceService {
   }
 
   getStoreById(id: number): Observable<Store> {
-
     return this._httpClient.get<Store>(`${this._url}/api/Store/GetStoreById/${id}`, this.getHttpOptions()).pipe(
       map((response) => response as Store),
       catchError(this.handleError)
@@ -111,5 +120,4 @@ export class MarketplaceService {
     console.log(error);
     return throwError(() => new Error(errorMessage));
   }
-  
 }
