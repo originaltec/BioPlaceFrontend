@@ -16,6 +16,8 @@ export class SignInComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
+  loading : boolean = false;
+
   /**
    * Creates an instance of SignInComponent.
    * 
@@ -47,7 +49,10 @@ export class SignInComponent {
    */
   login(): void {
     
+    this.loading = true;
+
     if (this.loginForm.invalid) {
+      this.loading = false;
       return;
     }
 
@@ -55,12 +60,16 @@ export class SignInComponent {
 
     this._authService.login(email, password).subscribe(
       (response : any) => {
+        this.loading = false;
+
         const token = response.token;
         this._authService.saveToken(token);
 
-        this._router.navigate(['/dashboard/productos']);
+        this._router.navigate(['/dashboard/products']);
       },
       (error : any) => {
+        this.loading = false;
+
         this.errorMessage = 'Credenciales incorrectas. Intenta de nuevo.';
       }
     );
