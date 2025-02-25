@@ -89,6 +89,12 @@ export class MarketplaceService {
     );
   }
 
+  /**
+   * Retrieves an order by its ID.
+   *
+   * @param {number} id - The ID of the order to retrieve.
+   * @returns {Observable<any>} An observable containing the order data.
+   */
   getOrderById (id : number) : Observable<any> {
     return this._httpClient.get<any>(`${this._url}/api/Order/GetOrderById/${id}`, this.getHttpOptions()).pipe(
       map((response) => response as Order), 
@@ -96,6 +102,11 @@ export class MarketplaceService {
     );
   }
 
+  /**
+   * Retrieves a list of stores from the server.
+   *
+   * @returns {Observable<Store[]>} An observable containing an array of Store objects.
+   */
   getStores(): Observable<Store[]> {
     return this._httpClient.get<Store[]>(`${this._url}/api/Store/GetStores`, this.getHttpOptions()).pipe(
       map((response) => response as Store[]), 
@@ -103,6 +114,16 @@ export class MarketplaceService {
     );
   }
 
+  /**
+   * Retrieves a store by its unique identifier.
+   *
+   * @param {number} id - The unique identifier of the store to retrieve.
+   * @returns {Observable<Store>} An observable containing the store data.
+   *
+   * @remarks
+   * This method sends an HTTP GET request to the server to fetch the store details.
+   * The response is mapped to a `Store` object and any errors are handled by `handleError`.
+   */
   getStoreById(id: number): Observable<Store> {
     return this._httpClient.get<Store>(`${this._url}/api/Store/GetStoreById/${id}`, this.getHttpOptions()).pipe(
       map((response) => response as Store),

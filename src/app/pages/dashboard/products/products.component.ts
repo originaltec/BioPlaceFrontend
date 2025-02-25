@@ -180,32 +180,32 @@ export class ProductsComponent {
   
   updateProduct(product: any, index = -1) {
 
-    // const { objectIdOid } = product;
+    const { objectIdOid } = product;
 
     this._auroralService.getItemData(
-      "8b09e4ce-aead-433c-9dc2-be6180e3de73",
+       objectIdOid || "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
       "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
       "Shipments"
     ).subscribe(({ message: { quantity } }: any) => {
      
       console.log(quantity);
 
-      // product.stock_quantity = quantity[0]?.value || 0;
+      product.stock_quantity = quantity[0]?.value || 0;
 
-      // const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
-      // let { description } = product;
+      const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
+      let { description } = product;
       
-      // description = description.replace(/<p[^>]*id=["']stock-info["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
+      description = description.replace(/<p[^>]*id=["']stock-info["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
   
-      // const extraText = `<p id='stock-info'><strong>Stock Del MarketPlace ${number}</strong></p>`;
-      // const updatedDescription = description + extraText;
+      const extraText = `<p id='stock-info'><strong>Stock Del MarketPlace ${number}</strong></p>`;
+      const updatedDescription = description + extraText;
   
-      // this._marketPlaceService.updateProduct(Number(product.id), number, updatedDescription).subscribe((data) => {
+      this._marketPlaceService.updateProduct(Number(product.id), number, updatedDescription).subscribe((data) => {
 
-      //   if (index !== -1) {
-      //     this.products[index].success = true;
-      //   }
-      // });
+        if (index !== -1) {
+          this.products[index].success = true;
+        }
+      });
 
     });
 
