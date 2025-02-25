@@ -1,8 +1,8 @@
 <div class="bg-white py-24 sm:py-32 border">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl lg:mx-0">
-      <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">Editar producto</h2>
-      <p class="mt-2 text-lg/8 text-gray-600">Editar producto que viene del Marketplace.</p>
+      <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">Edit Product</h2>
+      <p class="mt-2 text-lg/8 text-gray-600">Edit the product coming from the Marketplace.</p>
     </div>
     <div class="mt-10 grid w-full grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 
@@ -10,22 +10,22 @@
         <div class="bg-white rounded-2xl border shadow-x1 p-10 w-full"> 
           <div class="flex flex-col items-center space-y-4">
             <h1 class="font-bold text-2xl text-gray-700 w-full text-center"> 
-              Editar Producto
+              Edit Product
             </h1>
             <p class="text-sm text-gray-500 text-center w-full"> 
-              Hola, por favor ingresa la cantidad de stock del producto.
+              Hello, please enter the stock quantity of the product.
             </p>
             <input
               type="number"
               class="border-2 rounded-lg w-full h-12 px-4"
               formControlName="stock_quantity"
-              placeholder="Cantidad de stock"
+              placeholder="Stock Quantity"
               min="0"
             />
             <button
               class="bg-black text-white rounded-md font-semibold px-4 py-3 w-full flex items-center justify-center"
             >
-              Actualizar
+              Update
               <div class="loader2" *ngIf="loading"></div>
             </button>
           </div>

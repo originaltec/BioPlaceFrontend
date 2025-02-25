@@ -10,36 +10,39 @@ import { AuroralService } from '../../../services/auroral/auroral.service';
   standalone: true,
   imports: [NgIf, NgFor, RouterModule, RouterLink],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
+  products: any[] = [];
+  errorMessage: string = '';
 
-  products : any [] = [];
-  errorMessage : string = '';
-
-  loading : boolean = true;
+  loading: boolean = true;
 
   productId: string = '';
   sukValue: string = '';
 
-  success : boolean = false;
+  success: boolean = false;
 
-  registeredElements : any;
+  registeredElements: any;
 
-  advice : boolean = false;
-  adviceMarketplaceStock : number = 0;
-  adviceProduct : any;
+  advice: boolean = false;
+  adviceMarketplaceStock: number = 0;
+  adviceProduct: any;
+  adviceQuantity: number = 0;
+
+  uploading: boolean = false;
 
   /**
    * Constructs an instance of the ProductsComponent.
-   * 
+   *
    * @param _marketPlaceService - Service to interact with the marketplace.
    * @param _activatedRoute - Service to access information about the current route.
    * @param _auroralService - Service to interact with the Auroral API.
    */
-  constructor (private _marketPlaceService : MarketplaceService,
-    private _activatedRoute : ActivatedRoute,
-    private _auroralService : AuroralService
+  constructor(
+    private _marketPlaceService: MarketplaceService,
+    private _activatedRoute: ActivatedRoute,
+    private _auroralService: AuroralService
   ) {}
 
   ngOnInit() {
@@ -53,8 +56,8 @@ export class ProductsComponent {
    * Subscribes to the route parameters and assigns the values to `productId` and `sukValue`.
    * If the parameters are not present, assigns an empty string.
    */
-  fetchData () {
-    this._activatedRoute.paramMap.subscribe(params => {
+  fetchData() {
+    this._activatedRoute.paramMap.subscribe((params) => {
       this.productId = params.get('id') || '';
       this.sukValue = params.get('suk') || '';
     });
@@ -62,15 +65,14 @@ export class ProductsComponent {
 
   /**
    * Fetches the registered products from the service and assigns them to the registeredElements property.
-   * 
+   *
    * This method makes a call to the _auroralService's getProducts method, which returns an observable.
    * When the observable emits data, it checks if the data is not null or undefined.
    * If data is present, it assigns the data to the registeredElements property.
    */
-  fetchRegisteredProducts () {
+  fetchRegisteredProducts() {
     this._auroralService.getProducts().subscribe((data) => {
-
-      if(data){
+      if (data) {
         this.registeredElements = data;
       }
     });
@@ -78,38 +80,37 @@ export class ProductsComponent {
 
   /**
    * Fetches products from the marketplace service and updates the component's product list.
-   * 
+   *
    * This method performs the following steps:
    * 1. Calls the marketplace service to get WooCommerce products.
    * 2. Subscribes to the response and updates the `products` array and `loading` state.
    * 3. Iterates over the registered elements and fetches additional product details from the auroral service.
    * 4. Updates the corresponding product in the `products` array with the fetched details.
-   * 
+   *
    * In case of an error during the fetch operation, the `errorMessage` and `loading` state are updated accordingly.
-   * 
+   *
    * @returns {void}
    */
-  fetchProducts () {
+  fetchProducts() {
     this._marketPlaceService.getWooProducts().subscribe({
-
       next: (data) => {
         this.products = data;
         this.loading = false;
 
         const arrayElement = this.registeredElements.message;
 
-        arrayElement.forEach(( element : any, index : number) => {
-
+        arrayElement.forEach((element: any, index: number) => {
           this._auroralService.getProduct(element).subscribe((tempElement) => {
             const { name } = tempElement.message;
-          
-            const index = this.products.findIndex((product: Product) => product.name === name);
+
+            const index = this.products.findIndex(
+              (product: Product) => product.name === name
+            );
 
             if (index !== -1) {
               console.log(this.products[index]);
               this.products[index].objectIdOid = element;
             }
-
           });
         });
       },
@@ -117,7 +118,7 @@ export class ProductsComponent {
       error: (error) => {
         this.errorMessage = error;
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -129,17 +130,14 @@ export class ProductsComponent {
    * @param product - The product to be registered.
    * @param index - The index of the product in the products array. Defaults to -1.
    */
-  register(product : any, index : number = -1) {
+  register(product: any, index: number = -1) {
     this._auroralService.registerProduct(product).subscribe(
       (data) => {
         this.fetchProducts();
       },
       (error) => {
-        
-        if(error.error.message[0].error.startsWith("REGISTRATION")){
-
-          if(index !== -1) 
-            this.products[index].error = true;
+        if (error.error.message[0].error.startsWith('REGISTRATION')) {
+          if (index !== -1) this.products[index].error = true;
         }
       }
     );
@@ -147,15 +145,15 @@ export class ProductsComponent {
 
   /**
    * Opens the advice modal for a given product and fetches its details from the marketplace service.
-   * 
+   *
    * @param product - The product object containing the product details.
-   * 
+   *
    * @remarks
    * This method sets the `advice` flag to true and makes an HTTP request to fetch the product details
    * by its ID. On successful response, it assigns the product details to `adviceProduct` and updates
-   * the `adviceMarketplaceStock` with the product's stock quantity. If an error occurs during the 
+   * the `adviceMarketplaceStock` with the product's stock quantity. If an error occurs during the
    * HTTP request, it logs the error to the console.
-   * 
+   *
    * @example
    * ```typescript
    * const product = { id: 123, name: 'Sample Product' };
@@ -164,6 +162,31 @@ export class ProductsComponent {
    */
   openAdvice(product: any) {
     this.advice = true;
+
+    const { objectIdOid } = product;
+
+    this._auroralService
+      .getItemData(
+        "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
+        "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
+        "Shipments"
+      )
+      .subscribe(
+        ({ message: { quantity } }: any) => {
+          const temp = quantity[0]?.value || 0;
+
+          const number = parseInt(
+            temp.replace(/[,\.].*/, ''),
+            10
+          );
+
+          this.adviceQuantity = number;
+
+        },
+        (error) => {
+          console.error('Error al obtener datos del artículo:', error);
+        }
+      );
 
     this._marketPlaceService.getWooProductById(product.id).subscribe(
       (response: any) => {
@@ -176,38 +199,46 @@ export class ProductsComponent {
       }
     );
   }
-  
-  
+
   updateProduct(product: any, index = -1) {
+    this.uploading = true;
 
     const { objectIdOid } = product;
 
-    this._auroralService.getItemData(
-       objectIdOid || "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
-      "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
-      "Shipments"
-    ).subscribe(({ message: { quantity } }: any) => {
-     
-      console.log(quantity);
+    product.stock_quantity = this.adviceQuantity || 0;
 
-      product.stock_quantity = quantity[0]?.value || 0;
+          let { description } = product;
 
-      const number = parseInt(product.stock_quantity.replace(/[,\.].*/, ""), 10);
-      let { description } = product;
-      
-      description = description.replace(/<p[^>]*id=["']stock-info["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s, '');
-  
-      const extraText = `<p id='stock-info'><strong>Stock Del MarketPlace ${number}</strong></p>`;
-      const updatedDescription = description + extraText;
-  
-      this._marketPlaceService.updateProduct(Number(product.id), number, updatedDescription).subscribe((data) => {
+          description = description.replace(
+            /<p[^>]*id=["']stock-info["'][^>]*>.*?<\/p>(?=[^<p>]*$)/s,
+            ''
+          );
 
-        if (index !== -1) {
-          this.products[index].success = true;
-        }
-      });
+          const extraText = `<p id='stock-info'><strong>Stock Del MarketPlace ${this.adviceQuantity}</strong></p>`;
+          const updatedDescription = description + extraText;
 
-    });
+          this._marketPlaceService
+            .updateProduct(Number(product.id), this.adviceQuantity, updatedDescription)
+            .subscribe({
+              next: (data) => {
+                this.advice = false;
 
+                if (index !== -1) {
+                  this.products[index].success = true;
+                }
+              },
+              error: (err) => {
+                console.error(
+                  'Error al actualizar el producto en el marketplace:',
+                  err
+                );
+                this.uploading = false;
+                this.advice = false;
+                if (index !== -1) {
+                  this.products[index].success = false;
+                }
+              },
+            });
+    
   }
 }
