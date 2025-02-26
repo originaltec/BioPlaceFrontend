@@ -29,6 +29,7 @@ export class ProductsComponent {
   advice: boolean = false;
   adviceMarketplaceStock: number = 0;
   adviceProduct: any;
+  adviceIndex : number = -1;
   adviceQuantity: number = 0;
 
   uploading: boolean = false;
@@ -169,8 +170,9 @@ export class ProductsComponent {
    * this.openAdvice(product);
    * ```
    */
-  openAdvice(product: any) {
+  openAdvice(product: any, index : number) {
     this.advice = true;
+    this.adviceIndex = index;
 
     const { objectIdOid } = product;
 
@@ -213,9 +215,11 @@ export class ProductsComponent {
 
   }
 
-  updateProduct(product: any, index = -1) {
-    this.uploading = true;
+  updateProduct() {
 
+    const product = this.products[this.adviceIndex];
+
+    console.log(product);
 
     product.stock_quantity = this.adviceQuantity || 0;
 
@@ -235,8 +239,8 @@ export class ProductsComponent {
               next: (data) => {
                 this.advice = false;
 
-                if (index !== -1) {
-                  this.products[index].success = true;
+                if (this.adviceIndex !== -1) {
+                  this.products[this.adviceIndex].success = true;
                 }
               },
               error: (err) => {
@@ -246,8 +250,8 @@ export class ProductsComponent {
                 );
                 this.uploading = false;
                 this.advice = false;
-                if (index !== -1) {
-                  this.products[index].success = false;
+                if (this.adviceIndex !== -1) {
+                  this.products[this.adviceIndex].success = false;
                 }
               },
             });
