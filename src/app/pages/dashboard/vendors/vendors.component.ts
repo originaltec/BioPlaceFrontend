@@ -57,6 +57,8 @@ export class VendorsComponent {
       next: (data : any) => {
         this.stores = data;  
         this.loading = false;
+
+        console.log(data);
       },
 
       error: (error) => {

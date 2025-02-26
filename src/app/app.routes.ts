@@ -26,7 +26,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: 'dashboard/productos',
+        redirectTo: 'dashboard/products',
         pathMatch: 'full'
     }
 ];

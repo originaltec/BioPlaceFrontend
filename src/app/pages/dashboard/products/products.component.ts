@@ -13,6 +13,7 @@ import { AuroralService } from '../../../services/auroral/auroral.service';
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
+
   products: any[] = [];
   errorMessage: string = '';
 
@@ -167,7 +168,7 @@ export class ProductsComponent {
 
     this._auroralService
       .getItemData(
-        "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
+        objectIdOid || "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
         "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
         "Shipments"
       )
@@ -203,7 +204,6 @@ export class ProductsComponent {
   updateProduct(product: any, index = -1) {
     this.uploading = true;
 
-    const { objectIdOid } = product;
 
     product.stock_quantity = this.adviceQuantity || 0;
 
