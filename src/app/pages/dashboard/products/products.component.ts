@@ -176,7 +176,7 @@ export class ProductsComponent {
 
     this._auroralService
       .getItemData(
-        objectIdOid || "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
+        "cb3bb356-507b-4cdc-8865-e2a8c632d3d4",
         "e17b2459-5e3c-456b-aaaa-d5f47d9817e7",
         "Shipments"
       )
@@ -191,22 +191,26 @@ export class ProductsComponent {
 
           this.adviceQuantity = number;
 
+          this._marketPlaceService.getWooProductById(product.id).subscribe(
+            (response: any) => {
+              this.adviceProduct = response;
+              const tempStock = response[0].stock_quantity;
+              this.adviceMarketplaceStock = tempStock || 0;
+
+              console.log(this.adviceQuantity);
+              console.log(this.adviceMarketplaceStock);
+            },
+            (error) => {
+              console.error('Error al obtener el producto:', error);
+            }
+          );
+
         },
         (error) => {
           console.error('Error al obtener datos del artículo:', error);
         }
       );
 
-    this._marketPlaceService.getWooProductById(product.id).subscribe(
-      (response: any) => {
-        this.adviceProduct = response;
-        const tempStock = response[0].stock_quantity;
-        this.adviceMarketplaceStock = tempStock;
-      },
-      (error) => {
-        console.error('Error al obtener el producto:', error);
-      }
-    );
   }
 
   updateProduct(product: any, index = -1) {
