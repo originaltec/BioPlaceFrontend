@@ -33,6 +33,7 @@ export class ProductsComponent {
 
   uploading: boolean = false;
 
+
   /**
    * Constructs an instance of the ProductsComponent.
    *
@@ -132,11 +133,18 @@ export class ProductsComponent {
    * @param index - The index of the product in the products array. Defaults to -1.
    */
   register(product: any, index: number = -1) {
+    this.products[index].loading = true;
+
     this._auroralService.registerProduct(product).subscribe(
       (data) => {
+        this.products[index].successUpload = true;
+        this.products[index].loading = false;
         this.fetchProducts();
       },
       (error) => {
+        this.products[index].errorUpload = true;
+        this.products[index].loading = false;
+
         if (error.error.message[0].error.startsWith('REGISTRATION')) {
           if (index !== -1) this.products[index].error = true;
         }

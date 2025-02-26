@@ -85,6 +85,18 @@
 
           </div>
 
+          <div class="bg-red-100 border alert border-red-400 text-red-700 px-4 py-3 rounded relative mt-3" role="alert" *ngIf="product.errorUpload">
+            <strong class="font-bold">Error</strong>
+            <span class="block sm:inline">Error uploading the product.</span>
+          </div>
+
+          <div class="bg-green-100 border alert border-green-400 text-green-700 px-4 py-3 rounded relative mt-3" role="alert" *ngIf="product.successUpload">
+            <strong class="font-bold">Success</strong>
+            <span class="block sm:inline">Product uploaded successfully.</span>
+          </div>
+
+          <div class="loader mt-3" *ngIf="product.loading"></div>
+
         </article>
       </ng-template>
 
