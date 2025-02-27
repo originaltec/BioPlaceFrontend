@@ -56,6 +56,10 @@ export const dashboardChildrenRoutes: Routes = [
     loadComponent: () => import('./order/order.component').then((c) => c.OrderComponent)
   },
   {
+    path: 'users',
+    loadComponent: () => import('./users/users.component').then((c) => c.UsersComponent)
+  },
+  {
     path: 'settings',
     loadComponent: () => import('./settings/settings.component').then((c) => c.SettingsComponent)
   },

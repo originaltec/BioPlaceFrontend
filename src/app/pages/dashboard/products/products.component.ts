@@ -198,9 +198,6 @@ export class ProductsComponent {
               this.adviceProduct = response;
               const tempStock = response[0].stock_quantity;
               this.adviceMarketplaceStock = tempStock || 0;
-
-              console.log(this.adviceQuantity);
-              console.log(this.adviceMarketplaceStock);
             },
             (error) => {
               console.error('Error al obtener el producto:', error);
@@ -218,8 +215,6 @@ export class ProductsComponent {
   updateProduct() {
 
     const product = this.products[this.adviceIndex];
-
-    console.log(product);
 
     product.stock_quantity = this.adviceQuantity || 0;
 
@@ -251,7 +246,7 @@ export class ProductsComponent {
                 this.uploading = false;
                 this.advice = false;
                 if (this.adviceIndex !== -1) {
-                  this.products[this.adviceIndex].success = false;
+                  this.products[this.adviceIndex].success = true;
                 }
               },
             });

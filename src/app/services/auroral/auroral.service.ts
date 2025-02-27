@@ -76,7 +76,6 @@ export class AuroralService {
 
     return this.http.post(`${this._apiUrl}/api/registration`, json, { headers }).pipe(
       catchError((error) => {
-        console.error('Error registrando el producto:', error);
         return throwError(() => error);
       })
     );
@@ -101,7 +100,6 @@ export class AuroralService {
   
     return this.http.get(`${this._apiUrl}/api/registration`, { headers }).pipe(
       catchError((error) => {
-        console.error('Error obteniendo los productos:', error);
         return throwError(() => error);
       })
     );
@@ -124,7 +122,6 @@ export class AuroralService {
   
     return this.http.get(`${this._apiUrl}/api/registration/${id}`, { headers }).pipe(
       catchError((error) => {
-        console.error('Error obteniendo el producto con oid:', error);
         return throwError(() => error);
       })
     );
@@ -149,7 +146,6 @@ export class AuroralService {
   
     return this.http.get(`${this._apiUrl}/api/properties/${id}/${oid}/${pid}`, { headers }).pipe(
       catchError((error) => {
-        console.error(`Error obtenint les dades de l'ítem amb id: ${id}, oid: ${oid}, pid: ${pid}`, error);
         return throwError(() => error);
       })
     );
