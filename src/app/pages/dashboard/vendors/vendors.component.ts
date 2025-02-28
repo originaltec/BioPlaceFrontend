@@ -3,6 +3,7 @@ import { MarketplaceService } from '../../../services/marketplace/marketplace.se
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { Store } from '../../../models/store';
+import { UsersService } from '../../../services/users/users.service';
 
 @Component({
   selector: 'app-vendors',
@@ -20,14 +21,44 @@ export class VendorsComponent {
   storeId: string = ''; 
   sukValue: string = ''; 
 
+  userId !: number;
+  isAdmin !: boolean;
+
   constructor(
     private _marketPlaceService: MarketplaceService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _usersService : UsersService
   ) {}
 
   ngOnInit() {
     this.fetchData();
-    this.getStores(); 
+    this.fetchUserId();
+    this.fetchIsAdmin();
+  }
+
+  fetchUserId() {
+    this._usersService.getUserId().subscribe(
+      (response) => {
+        this.userId = response.userId;
+
+        this.getStores(); 
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  fetchIsAdmin () {
+    this._usersService.getRoles().subscribe(
+      (response) => {
+        this.isAdmin = response.isAdmin;
+
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   /**
@@ -52,12 +83,12 @@ export class VendorsComponent {
    * @returns {void}
    */
   getStores() {
-    this._marketPlaceService.getStores().subscribe({
+    this._marketPlaceService.getStores(this.userId).subscribe({
 
       next: (data : any) => {
         this.stores = data;  
         this.loading = false;
-
+      
         console.log(data);
       },
 

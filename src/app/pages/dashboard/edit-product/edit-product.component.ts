@@ -56,6 +56,8 @@ export class EditProductComponent {
           (response: any) => {
             this.product = response;
 
+            console.log(this.product);
+
             this.productForm.setValue({
               stock_quantity: this.product[0].stock_quantity || 0
             });

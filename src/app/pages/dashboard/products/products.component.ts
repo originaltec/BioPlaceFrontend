@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MarketplaceService } from '../../../services/marketplace/marketplace.service';
 import { NgFor, NgIf } from '@angular/common';
 import { Product } from '../../../models/product';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { AuroralService } from '../../../services/auroral/auroral.service';
+import { UsersService } from '../../../services/users/users.service';
 
 @Component({
   selector: 'app-products',
@@ -34,6 +35,8 @@ export class ProductsComponent {
 
   uploading: boolean = false;
 
+  userId !: number;
+  isAdmin !: boolean;
 
   /**
    * Constructs an instance of the ProductsComponent.
@@ -45,13 +48,39 @@ export class ProductsComponent {
   constructor(
     private _marketPlaceService: MarketplaceService,
     private _activatedRoute: ActivatedRoute,
-    private _auroralService: AuroralService
+    private _auroralService: AuroralService,
+    private _usersService : UsersService
   ) {}
 
   ngOnInit() {
+    this.fetchUserId();
+    this.fetchIsAdmin();
     this.fetchRegisteredProducts();
     this.fetchData();
-    this.fetchProducts();
+  }
+
+  fetchUserId() {
+    this._usersService.getUserId().subscribe(
+      (response) => {
+        this.userId = response.userId;
+        
+        this.fetchProducts();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  fetchIsAdmin () {
+    this._usersService.getRoles().subscribe(
+      (response) => {
+        this.isAdmin = response.isAdmin;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   /**
@@ -95,7 +124,7 @@ export class ProductsComponent {
    * @returns {void}
    */
   fetchProducts() {
-    this._marketPlaceService.getWooProducts().subscribe({
+    this._marketPlaceService.getWooProducts(this.userId).subscribe({
       next: (data) => {
         this.products = data;
         this.loading = false;
@@ -136,21 +165,25 @@ export class ProductsComponent {
   register(product: any, index: number = -1) {
     this.products[index].loading = true;
 
-    this._auroralService.registerProduct(product).subscribe(
-      (data) => {
-        this.products[index].successUpload = true;
-        this.products[index].loading = false;
-        this.fetchProducts();
-      },
-      (error) => {
-        this.products[index].errorUpload = true;
-        this.products[index].loading = false;
+    if(product){
 
-        if (error.error.message[0].error.startsWith('REGISTRATION')) {
-          if (index !== -1) this.products[index].error = true;
+      this._auroralService.registerProduct(product).subscribe(
+        (data) => {
+          this.products[index].successUpload = true;
+          this.products[index].loading = false;
+          this.fetchProducts();
+        },
+        (error) => {
+          this.products[index].errorUpload = true;
+          this.products[index].loading = false;
+  
+          if (error.error.message[0].error.startsWith('REGISTRATION')) {
+            if (index !== -1) this.products[index].error = true;
+          }
         }
-      }
-    );
+      );
+    }
+   
   }
 
   /**

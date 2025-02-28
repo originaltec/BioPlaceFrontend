@@ -8,7 +8,7 @@ import { Product } from '../../models/product';
 })
 export class AuroralService {
 
-  private _apiUrl: string = 'https://bioplace-auroral-node.spaincentral.cloudapp.azure.com';
+  private _apiUrl: string = 'https://bioplace-auroral-node.spaincentral.cloudapp.azure.com:81';
   private _username: string = 'juan@originaltec.com'; 
   private _password: string = 'Tfcpass@2024'; 
 

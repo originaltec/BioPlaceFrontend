@@ -44,6 +44,7 @@ export class OrdersComponent {
           next: (data : Order []) => {
             this.orders = data;
             this.loading = false;
+
           },
     
           error: (error) => {

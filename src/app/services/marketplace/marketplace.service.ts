@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
@@ -49,10 +49,18 @@ export class MarketplaceService {
     );
   }
 
-  getWooProducts(): Observable<any> {
-    return this._httpClient.get<any>(`${this._apiUrl}/api/Product/allwoo`, this.getHttpOptions()).pipe(
+  getWooProducts(userId?: number): Observable<any> {
+    let params = new HttpParams();
+    if (userId) {
+      params = params.set('userId', userId.toString());
+    }
+  
+    return this._httpClient.get<any>(`${this._apiUrl}/api/Product/allwoo`, {
+      headers: this.getHttpOptions().headers,
+      params: params  
+    }).pipe(
       map((response) => response as Product), 
-      catchError(this.handleError)  
+      catchError(this.handleError)
     );
   }
 
@@ -106,12 +114,23 @@ export class MarketplaceService {
    *
    * @returns {Observable<Store[]>} An observable containing an array of Store objects.
    */
-  getStores(): Observable<Store[]> {
-    return this._httpClient.get<Store[]>(`${this._apiUrl}/api/Store/GetStores`, this.getHttpOptions()).pipe(
-      map((response) => response as Store[]), 
-      catchError(this.handleError)
+  getStores(userId?: number): Observable<Store[]> {
+    let params = new HttpParams();
+  
+    if (userId) {
+      params = params.set('userId', userId.toString());
+    }
+  
+    return this._httpClient.get<Store[]>(`${this._apiUrl}/api/Store/GetStores`, {
+      headers: this.getHttpOptions().headers,
+      params: params
+    }).pipe(
+      map((response) => response as Store[]),  
+      catchError(this.handleError) 
+
     );
   }
+  
 
   /**
    * Retrieves a store by its unique identifier.
